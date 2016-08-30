@@ -105,3 +105,7 @@ Find here a documentation how to extract features from them.
 
 """
 from .api import *
+
+from ._version import get_versions
+__version__ = get_versions()['version']
+del get_versions
