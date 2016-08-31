@@ -9,8 +9,14 @@ class FileFormatRegistry(object):
         def decorator(f):
             extensions = tuple(args)
             cls.readers.update({e: f for e in extensions})
+            f.SUPPORTED_EXTENSIONS = extensions
             return f
         return decorator
+
+    @staticmethod
+    def is_md_format(extension):
+        from chainsaw.data import FeatureReader
+        return extension in FeatureReader.SUPPORTED_EXTENSIONS
 
 # singleton pattern
 FileFormatRegistry = FileFormatRegistry()
@@ -18,7 +24,5 @@ FileFormatRegistry = FileFormatRegistry()
 
 # TODO: should we use this or not? explicit is better than implicit, so only add the readers, we've tested?
 # # if we have mdtraj loaded, use their file classes too.
-# import sys as _sys
-# if 'mdtraj' in _sys.modules:
-#     from mdtraj.formats import registry as _reg
+
 #     FileFormatRegistry.readers.update(_reg.fileobjects)

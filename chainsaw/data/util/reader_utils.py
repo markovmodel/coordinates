@@ -41,7 +41,6 @@ def create_file_reader(input_files, topology, featurizer, chunk_size=1000, **kw)
         The chunk size with which the corresponding reader gets initialized.
     :return: Returns the reader.
     """
-    from chainsaw.data.numpy_filereader import NumPyFileReader
     from chainsaw.data.py_csv_reader import PyCSVReader
     from chainsaw.data import FeatureReader
     from chainsaw.data.fragmented_trajectory_reader import FragmentedTrajectoryReader
@@ -87,28 +86,23 @@ def create_file_reader(input_files, topology, featurizer, chunk_size=1000, **kw)
                                  " or did not exist:\n%s" % err_msg)
 
             if all_exist:
-                import sys
-                if 'mdtraj' in sys.modules:
-                    from mdtraj.formats.registry import FormatRegistry
-
-                    # CASE 1.1: file types are MD files
-                    if suffix in list(FormatRegistry.loaders.keys()):
+                from chainsaw.data.util.fileformat_registry import FileFormatRegistry
+                # check all registered suffixes.
+                if suffix in FileFormatRegistry.readers.keys():
+                    clazz = FileFormatRegistry.readers[suffix]
+                    if FileFormatRegistry.is_md_format(suffix):
+                        assert isinstance(clazz, FeatureReader)
                         # check: do we either have a featurizer or a topology file name? If not: raise ValueError.
                         # create a MD reader with file names and topology
                         if not featurizer and not topology:
                             raise ValueError("The input files were MD files which makes it mandatory to have either a "
                                              "featurizer or a topology file.")
-
-                        reader = FeatureReader(input_list, featurizer=featurizer, topologyfile=topology,
-                                               chunksize=chunk_size)
-                else:
-                    from chainsaw.data.util.fileformat_registry import FileFormatRegistry
-                    if suffix in FileFormatRegistry.keys():
-                        clazz = FileFormatRegistry.readers[suffix]
-                        return clazz(input_list, chunk_size=chunk_size)
-                    # otherwise we assume that given files are ascii tabulated data
+                        reader = clazz(input_list, featurizer=featurizer, topologyfile=topology, chunksize=chunk_size)
                     else:
-                        reader = PyCSVReader(input_list, chunksize=chunk_size, **kw)
+                        reader = clazz(input_list, chunk_size=chunk_size)
+                else:
+                    # otherwise we assume that given files are ascii tabulated data
+                    reader = PyCSVReader(input_list, chunksize=chunk_size, **kw)
         else:
             raise ValueError("Not all elements in the input list were of the type %s!" % suffix)
     else:
