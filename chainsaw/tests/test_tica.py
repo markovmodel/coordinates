@@ -34,7 +34,7 @@ from chainsaw import api
 from chainsaw.data.data_in_memory import DataInMemory
 from chainsaw import source, tica
 from chainsaw.transform import TICA as _internal_tica
-from pyemma.util.contexts import numpy_random_seed
+from chainsaw.util.contexts import numpy_random_seed
 from logging import getLogger
 import pyemma.util.types as types
 from six.moves import range

@@ -31,7 +31,7 @@ import chainsaw.api as coor
 from chainsaw.data import DataInMemory, FeatureReader
 from chainsaw.data.fragmented_trajectory_reader import FragmentedTrajectoryReader
 from chainsaw.tests.util import create_traj, get_top
-from pyemma.util.files import TemporaryDirectory
+from chainsaw.util.files import TemporaryDirectory
 
 
 def _test_ra_with_format(format, stride):

@@ -241,7 +241,7 @@ class SqliteDB(AbstractDB):
         if not self.filename:
             return None
 
-        from pyemma.util.files import mkdir_p
+        from chainsaw.util.files import mkdir_p
         hash_value_long = int(key, 16)
         # bin hash to one of either 10 different databases
         # TODO: make a configuration parameter out of this number

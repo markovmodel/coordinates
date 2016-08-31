@@ -28,7 +28,7 @@ import numpy as np
 
 from chainsaw.data._base.datasource import DataSourceIterator, DataSource
 from chainsaw.data.util.traj_info_cache import TrajInfo
-from pyemma.util.annotators import fix_docs
+from chainsaw.util.annotators import fix_docs
 
 from chainsaw.data.util.fileformat_registry import FileFormatRegistry
 

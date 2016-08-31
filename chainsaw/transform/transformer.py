@@ -29,7 +29,7 @@ from chainsaw.data._base.iterable import Iterable
 from chainsaw.data._base.random_accessible import RandomAccessStrategy
 from chainsaw.util.change_notification import (inform_children_upon_change,
                                                          NotifyOnChangesMixIn)
-from pyemma.util.annotators import fix_docs
+from chainsaw.util.annotators import fix_docs
 from pyemma.util.exceptions import NotConvergedWarning
 from six.moves import range
 import numpy as np

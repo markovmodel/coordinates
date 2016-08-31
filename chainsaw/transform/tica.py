@@ -29,7 +29,7 @@ from decorator import decorator
 
 from pyemma._base.model import Model
 #from chainsaw.estimators.covar.running_moments import running_covar
-from pyemma.util.annotators import fix_docs, deprecated
+from chainsaw.util.annotators import fix_docs, deprecated
 from pyemma.util.linalg import eig_corr
 from pyemma.util.reflection import get_default_args
 

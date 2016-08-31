@@ -34,9 +34,9 @@ from pyemma._ext.sklearn.base import ClusterMixin
 from . import regspatial
 from chainsaw.transform.transformer import StreamingTransformer
 
-from pyemma.util.annotators import fix_docs
+from chainsaw.util.annotators import fix_docs
 from pyemma.util.discrete_trajectories import index_states, sample_indexes_by_state
-from pyemma.util.files import mkdir_p
+from chainsaw.util.files import mkdir_p
 
 
 @fix_docs

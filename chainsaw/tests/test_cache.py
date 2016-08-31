@@ -1,12 +1,12 @@
+import os
 import tempfile
 import unittest
-import numpy as np
-import pyemma
 from glob import glob
-import os
+
+import numpy as np
+from pyemma.util import config
 
 from ..data.cache import Cache
-from pyemma.util import config
 
 
 class ProfilerCase(unittest.TestCase):

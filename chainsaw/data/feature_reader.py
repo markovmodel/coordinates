@@ -27,7 +27,7 @@ from ._base.random_accessible import RandomAccessStrategy
 from chainsaw.data.featurization.featurizer import MDFeaturizer
 from chainsaw.data.util.traj_info_cache import TrajInfo
 from chainsaw.util import patches
-from pyemma.util.annotators import deprecated, fix_docs
+from chainsaw.util.annotators import fix_docs
 
 
 __author__ = 'noe, marscher'

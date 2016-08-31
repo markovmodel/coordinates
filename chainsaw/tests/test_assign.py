@@ -19,13 +19,13 @@ from __future__ import absolute_import
 
 import os
 import unittest
-
-from pyemma.util.files import TemporaryDirectory
 from logging import getLogger
-from six.moves import range
-import numpy as np
+
 import chainsaw as coor
-import pyemma.util.types as types
+import chainsaw.util.types as types
+import numpy as np
+from chainsaw.util.files import TemporaryDirectory
+from six.moves import range
 
 
 logger = getLogger('pyemma.'+'TestCluster')

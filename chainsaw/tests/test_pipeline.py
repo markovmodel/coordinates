@@ -33,7 +33,7 @@ import msmtools.generation as msmgen
 import tempfile
 from six.moves import range
 import pkg_resources
-from pyemma.util.files import TemporaryDirectory
+from chainsaw.util.files import TemporaryDirectory
 import chainsaw as coor
 
 class TestPipeline(unittest.TestCase):

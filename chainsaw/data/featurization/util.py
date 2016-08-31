@@ -19,9 +19,9 @@ Created on 15.02.2016
 
 @author: marscher
 '''
-from pyemma.util.indices import (combinations,
+from chainsaw.util.indices import (combinations,
                                  product)
-from pyemma.util.types import is_iterable_of_int, is_string
+from chainsaw.util.types import is_iterable_of_int, is_string
 from six import PY3
 
 import numpy as np

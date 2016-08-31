@@ -25,7 +25,7 @@ import numpy as np
 
 from ._base.datasource import DataSourceIterator, DataSource
 from ._base.random_accessible import RandomAccessStrategy
-from pyemma.util.annotators import fix_docs
+from chainsaw.util.annotators import fix_docs
 
 __author__ = 'noe, marscher'
 

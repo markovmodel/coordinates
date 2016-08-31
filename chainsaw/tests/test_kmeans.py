@@ -26,7 +26,7 @@ import os
 import unittest
 
 from chainsaw.api import cluster_kmeans
-from pyemma.util.files import TemporaryDirectory
+from chainsaw.util.files import TemporaryDirectory
 
 from six.moves import range
 import numpy as np

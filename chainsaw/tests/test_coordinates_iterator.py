@@ -2,7 +2,7 @@ import unittest
 import numpy as np
 
 from chainsaw.data import DataInMemory
-from pyemma.util.files import TemporaryDirectory
+from chainsaw.util.files import TemporaryDirectory
 import os
 from glob import glob
 

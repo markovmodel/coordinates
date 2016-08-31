@@ -24,7 +24,7 @@ import math
 from pyemma._base.model import Model
 from progress_reporter import ProgressReporter
 from chainsaw.transform.transformer import StreamingTransformer
-from pyemma.util.annotators import fix_docs
+from chainsaw.util.annotators import fix_docs
 from pyemma.util.reflection import get_default_args
 
 #from chainsaw.estimators.covar.running_moments import running_covar

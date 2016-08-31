@@ -19,13 +19,13 @@ from __future__ import absolute_import
 
 import warnings
 
-from pyemma._base.logging import Loggable
-from pyemma.util.types import is_string
+from chainsaw._base.logging import Loggable
+from chainsaw.util.types import is_string
 import mdtraj
 import six
 
 from chainsaw.data.featurization.util import (_parse_pairwise_input,
-                                                        _parse_groupwise_input)
+                                              _parse_groupwise_input)
 
 from .misc import CustomFeature
 import numpy as np

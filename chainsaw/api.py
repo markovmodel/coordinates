@@ -24,7 +24,7 @@ r"""User-API for the chainsaw package
 import numpy as _np
 import logging as _logging
 
-from pyemma.util import types as _types
+from chainsaw.util import types as _types
 # lift this function to the api
 from .util.stat import histogram
 
@@ -36,7 +36,7 @@ _logger = _logging.getLogger(__name__)
 __docformat__ = "restructuredtext en"
 __author__ = "Frank Noe, Martin Scherer"
 __copyright__ = "Copyright 2015, Computational Molecular Biology Group, FU-Berlin"
-__credits__ = ["Benjamin Trendelkamp-Schroer", "Martin Scherer", "Frank Noe"]
+__credits__ = ["Benjamin Trendelkamp-Schroer", "Martin Scherer", "Frank Noe", "Moritz Hoffmann"]
 __maintainer__ = "Martin Scherer"
 __email__ = "m.scherer AT fu-berlin DOT de"
 

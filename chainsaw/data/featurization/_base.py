@@ -19,7 +19,7 @@ Created on 15.02.2016
 
 @author: marscher
 '''
-from pyemma.util.annotators import deprecated
+from chainsaw.util.annotators import deprecated
 
 
 class Feature(object):

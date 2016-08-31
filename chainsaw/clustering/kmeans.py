@@ -30,10 +30,10 @@ import tempfile
 
 from progress_reporter import ProgressReporter
 from .interface import AbstractClustering
-from pyemma.util.annotators import fix_docs
-from pyemma.util.units import bytes_to_string
+from chainsaw.util.annotators import fix_docs
+from chainsaw.util.units import bytes_to_string
 
-from pyemma.util.contexts import conditional, random_seed
+from chainsaw.util.contexts import conditional, random_seed
 from six.moves import range
 import numpy as np
 

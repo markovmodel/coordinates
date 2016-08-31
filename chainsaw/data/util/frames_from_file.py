@@ -29,7 +29,7 @@ from chainsaw.data.fragmented_trajectory_reader import FragmentedTrajectoryReade
 from chainsaw.data.util.reader_utils import (copy_traj_attributes as _copy_traj_attributes,
                                                        preallocate_empty_trajectory as _preallocate_empty_trajectory,
                                                        enforce_top as _enforce_top)
-from pyemma.util.annotators import deprecated
+from chainsaw.util.annotators import deprecated
 
 __all__ = ['frames_from_files']
 

@@ -59,7 +59,7 @@ class TestSaveTraj(unittest.TestCase):
         # Create random sets of files and frames to be retrieved from trajfiles
         n_members_set1 = 10
         n_members_set2 = 20
-        from pyemma.util.contexts import numpy_random_seed
+        from chainsaw.util.contexts import numpy_random_seed
         with numpy_random_seed(34):
             set_1 = np.vstack((np.random.permutation([0, 2] * n_members_set1)[:n_members_set1],
                                np.random.randint(32, size=n_members_set1))).T
@@ -175,7 +175,7 @@ class TestSaveTraj(unittest.TestCase):
             self.assertFalse(found_diff, errmsg)
 
     def test_with_fragmented_reader(self):
-        from pyemma.util.files import TemporaryDirectory
+        from chainsaw.util.files import TemporaryDirectory
         trajlen = 35
         # trajectory 0 (first trajectory, is trajfiles[2])
         #   -> skipped

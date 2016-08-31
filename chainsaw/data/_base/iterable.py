@@ -19,8 +19,8 @@ from abc import ABCMeta, abstractmethod
 import six
 import numpy as np
 
-from pyemma._base.logging import Loggable
-from pyemma._base.progress import ProgressReporter
+from chainsaw._base.logging import Loggable
+from progress_reporter import ProgressReporter
 
 
 class Iterable(six.with_metaclass(ABCMeta, ProgressReporter, Loggable)):

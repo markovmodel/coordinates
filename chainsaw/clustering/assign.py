@@ -28,7 +28,7 @@ import numpy as np
 import six
 
 from .interface import AbstractClustering
-from pyemma.util.annotators import fix_docs
+from chainsaw.util.annotators import fix_docs
 
 
 @fix_docs
