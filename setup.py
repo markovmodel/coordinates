@@ -92,6 +92,7 @@ def extensions():
     from setup_util import detect_openmp
     openmp_enabled, needs_gomp = detect_openmp()
 
+    # TODO: move rmsd metric to a separate module and link from pyemma...
     import mdtraj
     from numpy import get_include as _np_inc
     np_inc = _np_inc()
@@ -127,18 +128,8 @@ def extensions():
                   library_dirs=[mdtraj.capi()['lib_dir']],
                   extra_compile_args=['-std=c99'])
 
-    covar_module = \
-        Extension(__pkg_name+'.estimators.covar.covar_c.covartools',
-                  sources=[os.path.join(__pkg_name, 'estimators/covar/covar_c/covartools.pyx'),
-                           os.path.join(__pkg_name, 'estimators/covar/covar_c/_covartools.c')],
-                  include_dirs=[os.path.join(__pkg_name, 'estimators/covar/covar_c/'),
-                                np_inc,
-                                ],
-                  extra_compile_args=['-std=c99', '-O3'])
-
     exts += [regspatial_module,
              kmeans_module,
-             covar_module,
              ]
 
     if not USE_CYTHON:
@@ -203,7 +194,7 @@ metadata = dict(
     version=versioneer.get_version(),
     platforms=["Windows", "Linux", "Solaris", "Mac OS-X", "Unix"],
     classifiers=[c for c in CLASSIFIERS.split('\n') if c],
-    keywords='Markov State Model Algorithms',
+    keywords=['data'],
     packages=find_packages(),
     # install default emma.cfg into package.
     #package_data=dict(pyemma=['pyemma.cfg']),

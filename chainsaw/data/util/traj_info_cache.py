@@ -113,6 +113,9 @@ class TrajInfo(object):
         return "[TrajInfo hash={hash}, len={len}, dim={dim}, path={path}". \
             format(hash=self.hash_value, len=self.length, dim=self.ndim, path=self.abs_path)
 
+    def __hash__(self):
+        return hash(self.hash_value)
+
 
 class TrajectoryInfoCache(object):
 
@@ -238,6 +241,9 @@ class TrajectoryInfoCache(object):
         hasher.update(str(statinfo.st_size).encode('ascii'))
         hasher.update(data)
         return hasher.hexdigest()
+
+    def hash_file(self, filename):
+        return self._get_file_hash_v2(filename)
 
     def __setitem__(self, traj_info):
         self._database.set(traj_info)

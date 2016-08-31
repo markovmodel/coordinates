@@ -30,8 +30,9 @@ import numpy as np
 import six
 from six.moves import range
 
-from pyemma.coordinates.data._base.datasource import DataSourceIterator, DataSource
-from pyemma.coordinates.data.util.traj_info_cache import TrajInfo
+from ._base.datasource import DataSourceIterator, DataSource
+from .util.traj_info_cache import TrajInfo
+
 from pyemma.util.annotators import fix_docs
 
 

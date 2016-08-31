@@ -213,8 +213,8 @@ class Iterable(six.with_metaclass(ABCMeta, ProgressReporter, Loggable)):
                 self._logger.debug("get_output(): dimensions=%s" % str(dimensions))
                 self._logger.debug("get_output(): created output trajs with shapes: %s"
                                    % [x.shape for x in trajs])
-            # fetch data
-            self.logger.debug("nchunks :%s, chunksize=%s" % (it._n_chunks, it.chunksize))
+                self.logger.debug("nchunks :%s, chunksize=%s" % (it._n_chunks, it.chunksize))
+
             self._progress_register(it._n_chunks,
                                     description='getting output of %s' % self.__class__.__name__,
                                     stage=1)

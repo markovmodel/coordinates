@@ -23,8 +23,8 @@ import numbers
 
 import numpy as np
 
-from pyemma.coordinates.data._base.datasource import DataSourceIterator, DataSource
-from pyemma.coordinates.data._base.random_accessible import RandomAccessStrategy
+from ._base.datasource import DataSourceIterator, DataSource
+from ._base.random_accessible import RandomAccessStrategy
 from pyemma.util.annotators import fix_docs
 
 __author__ = 'noe, marscher'

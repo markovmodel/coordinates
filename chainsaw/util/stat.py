@@ -27,11 +27,6 @@ __author__ = 'Fabian Paul'
 __all__ = ['histogram']
 
 
-@deprecated("Please use pyemma.coordinates.histogram()")
-def hist(transform, dimensions, nbins):
-    return histogram(transform, dimensions, nbins)
-
-
 def histogram(transform, dimensions, nbins):
     '''Computes the N-dimensional histogram of the transformed data.
 

@@ -27,7 +27,7 @@ from __future__ import absolute_import
 import numpy as np
 import six
 
-from pyemma.coordinates.clustering.interface import AbstractClustering
+from .interface import AbstractClustering
 from pyemma.util.annotators import fix_docs
 
 

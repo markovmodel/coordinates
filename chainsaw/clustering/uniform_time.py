@@ -23,7 +23,7 @@ import math
 
 import numpy as np
 
-from pyemma.coordinates.clustering.interface import AbstractClustering
+from .interface import AbstractClustering
 from pyemma.util.annotators import fix_docs
 
 __author__ = 'noe'

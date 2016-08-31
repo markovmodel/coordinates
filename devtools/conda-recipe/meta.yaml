@@ -1,0 +1,58 @@
+package:
+  name: chainsaw
+  # version number: [base tag]+[commits-upstream]_[git_hash]
+  # eg. v2.0+0_g8824162
+  version: {{ GIT_DESCRIBE_TAG[1:] + '+' +GIT_BUILD_STR}}
+source:
+  path: ../..
+
+build:
+  preserve_egg_dir: True
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - cython >=0.20
+
+    # TODO: remove this
+    - pyemma
+
+    - mock
+    - funcsigs
+    - nose
+    - numpy x.x 
+    - h5py
+    - six
+    - psutil >=3.1.1
+    - decorator >=4.0.0
+    - progress_reporter
+
+  run:
+    - python
+    - setuptools
+    # TODO: remove this
+    - pyemma
+
+    - mock
+    - funcsigs
+    - numpy x.x
+    - h5py
+    - six
+    - psutil >=3.1.1
+    - decorator >=4.0.0
+    - progress_reporter
+
+test:
+  requires:
+    - nose
+    - coverage ==4
+  imports:
+    - chainsaw
+
+about:
+  home: http://emma-project.org
+  license: GNU Lesser Public License v3+
+  summary: "data pipe"
+
+
