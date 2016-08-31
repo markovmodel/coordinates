@@ -1,20 +1,19 @@
-from collections import defaultdict
 import os
+from collections import defaultdict
+
 import h5py
 import numpy as np
-
-from chainsaw._base.loggingimport Loggable
-
+from chainsaw._base.logging import Loggable
+from chainsaw.util.annotators import fix_docs
+from chainsaw.util.units import bytes_to_string
 from progress_reporter import ProgressReporter
+from pyemma.util import config
+
 from ._base.datasource import DataSource
 from .data_in_memory import DataInMemoryIterator
 from .util.traj_info_cache import TrajectoryInfoCache
 
-# TODO: remove these refs
-from pyemma.util import config
-from chainsaw.util.annotators import fix_docs
-from chainsaw.util.units import bytes_to_string
-
+# TODO: remove dbg code
 _used_files=[]
 
 
