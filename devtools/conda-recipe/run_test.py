@@ -7,7 +7,7 @@ import re
 
 src_dir = os.getenv('SRC_DIR')
 
-test_pkg = 'pyemma'
+test_pkg = 'chainsaw'
 cover_pkg = test_pkg
 
 # matplotlib headless backend
