@@ -20,7 +20,7 @@ import warnings
 from decorator import decorator, decorate
 from inspect import stack
 
-from .exceptions import PyEMMA_DeprecationWarning
+from .exceptions import Chainsaw_DeprecationWarning
 
 __all__ = ['alias',
            'aliased',
@@ -187,7 +187,7 @@ def deprecated(*optional_message):
 
         warnings.warn_explicit(
             user_msg,
-            category=PyEMMA_DeprecationWarning,
+            category=Chainsaw_DeprecationWarning,
             filename=filename,
             lineno=lineno
         )

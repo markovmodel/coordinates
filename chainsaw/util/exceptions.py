@@ -67,6 +67,6 @@ class ConfigDirectoryException(Exception):
     pass
 
 
-class PyEMMA_DeprecationWarning(UserWarning):
+class Chainsaw_DeprecationWarning(UserWarning):
     """You are using a feature, which will be removed in a future release. You have been warned!"""
     pass
