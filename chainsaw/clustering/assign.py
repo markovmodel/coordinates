@@ -54,8 +54,8 @@ class AssignCenters(AbstractClustering):
     --------
     Assuming you have stored your centers in a CSV file:
 
-    >>> from pyemma.coordinates.clustering import AssignCenters
-    >>> from pyemma.coordinates import pipeline
+    >>> from chainsaw.clustering import AssignCenters
+    >>> from chainsaw import pipeline
     >>> reader = ... # doctest: +SKIP
     >>> assign = AssignCenters('my_centers.dat') # doctest: +SKIP
     >>> disc = pipeline(reader, cluster=assign) # doctest: +SKIP
@@ -67,7 +67,7 @@ class AssignCenters(AbstractClustering):
         super(AssignCenters, self).__init__(metric=metric, n_jobs=n_jobs)
 
         if isinstance(clustercenters, six.string_types):
-            from pyemma.coordinates.data import create_file_reader
+            from chainsaw.data import create_file_reader
             reader = create_file_reader(clustercenters, None, None)
             clustercenters = reader.get_output()[0]
         else:

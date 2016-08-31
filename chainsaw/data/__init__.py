@@ -19,10 +19,10 @@
 
 r"""
 ===============================================================================
-data - Data and input/output utilities (:mod:`pyemma.coordinates.data`)
+data - Data and input/output utilities (:mod:`chainsaw.data`)
 ===============================================================================
 
-.. currentmodule: pyemma.coordinates.data
+.. currentmodule: chainsaw.data
 
 Order parameters
 ================

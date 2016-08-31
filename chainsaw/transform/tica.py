@@ -27,9 +27,8 @@ from math import log
 import numpy as np
 from decorator import decorator
 
-# TODO: how to deal with TICA?
 from pyemma._base.model import Model
-from pyemma.coordinates.estimators.covar.running_moments import running_covar
+#from chainsaw.estimators.covar.running_moments import running_covar
 from pyemma.util.annotators import fix_docs, deprecated
 from pyemma.util.linalg import eig_corr
 from pyemma.util.reflection import get_default_args
@@ -227,7 +226,7 @@ class TICA(StreamingTransformer):
         -----
         The projection matrix is first being calculated upon its first access.
         """
-        from pyemma.coordinates import source
+        from chainsaw import source
         iterable = source(X)
 
         self._estimate(iterable, partial=True)

@@ -33,10 +33,10 @@ from mdtraj.core.trajectory import Trajectory
 from mdtraj.core.element import hydrogen, oxygen
 from mdtraj.core.topology import Topology
 
-from pyemma.coordinates.clustering.uniform_time import UniformTimeClustering
-from pyemma.coordinates.pipelines import Discretizer
-from pyemma.coordinates.data.data_in_memory import DataInMemory
-from pyemma.coordinates.api import cluster_kmeans, pca, source
+from chainsaw.clustering.uniform_time import UniformTimeClustering
+from chainsaw.pipelines import Discretizer
+from chainsaw.data.data_in_memory import DataInMemory
+from chainsaw.api import cluster_kmeans, pca, source
 from six.moves import range
 
 
@@ -119,7 +119,7 @@ class TestDiscretizer(unittest.TestCase):
             self.assertEqual(unique.shape[0], n_clusters)
 
     def test_with_data_in_mem(self):
-        import pyemma.coordinates as api
+        import chainsaw as api
 
         data = [np.random.random((100, 50)),
                 np.random.random((103, 50)),

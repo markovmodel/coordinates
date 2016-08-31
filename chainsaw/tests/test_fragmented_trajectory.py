@@ -20,8 +20,8 @@ import unittest
 import pkg_resources
 import mdtraj
 import numpy as np
-import pyemma.coordinates as coor
-from pyemma.coordinates.data.fragmented_trajectory_reader import FragmentedTrajectoryReader
+import chainsaw as coor
+from chainsaw.data.fragmented_trajectory_reader import FragmentedTrajectoryReader
 from six.moves import range
 
 
@@ -74,7 +74,7 @@ class TestFragmentedTrajectory(unittest.TestCase):
                 np.testing.assert_array_almost_equal(data[lag::stride], Y)
 
     def test_fragmented_xtc(self):
-        from pyemma.coordinates.tests.util import create_traj
+        from chainsaw.tests.util import create_traj
 
         top_file = pkg_resources.resource_filename(__name__, 'data/test.pdb')
         trajfiles = []

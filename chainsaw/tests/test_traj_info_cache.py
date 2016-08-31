@@ -30,13 +30,13 @@ import unittest
 
 import mock
 
-from pyemma.coordinates import api
-from pyemma.coordinates.data.feature_reader import FeatureReader
-from pyemma.coordinates.data.numpy_filereader import NumPyFileReader
-from pyemma.coordinates.data.py_csv_reader import PyCSVReader
-from pyemma.coordinates.data.util.traj_info_backends import SqliteDB
-from pyemma.coordinates.data.util.traj_info_cache import TrajectoryInfoCache
-from pyemma.coordinates.tests.util import create_traj
+from chainsaw import api
+from chainsaw.data.feature_reader import FeatureReader
+from chainsaw.data.numpy_filereader import NumPyFileReader
+from chainsaw.data.py_csv_reader import PyCSVReader
+from chainsaw.data.util.traj_info_backends import SqliteDB
+from chainsaw.data.util.traj_info_cache import TrajectoryInfoCache
+from chainsaw.tests.util import create_traj
 from pyemma.datasets import get_bpti_test_data
 from pyemma.util import config
 from pyemma.util.contexts import settings
@@ -86,7 +86,7 @@ class TestTrajectoryInfoCache(unittest.TestCase):
         x = np.random.random((10, 3))
         my_conf = config()
         my_conf.cfg_dir = self.work_dir
-        with mock.patch('pyemma.coordinates.data.util.traj_info_cache.config', my_conf):
+        with mock.patch('chainsaw.data.util.traj_info_cache.config', my_conf):
             with NamedTemporaryFile(delete=False) as fh:
                 np.savetxt(fh.name, x)
                 reader = api.source(fh.name)
@@ -193,7 +193,7 @@ class TestTrajectoryInfoCache(unittest.TestCase):
             fn = f.name
             traj.save_xyz(fn)
             f.close()
-            reader = pyemma.coordinates.source(fn, top=pdbfile)
+            reader = chainsaw.source(fn, top=pdbfile)
             self.assertEqual(reader.trajectory_length(0), length)
 
     def test_data_in_mem(self):
@@ -212,7 +212,7 @@ class TestTrajectoryInfoCache(unittest.TestCase):
             f.close()  # windows sucks
             reader = api.source(fn)
             hash = db._get_file_hash(fn)
-            from pyemma.coordinates.data.util.traj_info_backends import DictDB
+            from chainsaw.data.util.traj_info_backends import DictDB
             db._database = DictDB()
             db._database.db_version = 0
 
@@ -240,7 +240,7 @@ class TestTrajectoryInfoCache(unittest.TestCase):
     def test_n_entries(self):
         self.assertEqual(self.db.num_entries, 0)
         assert TrajectoryInfoCache._instance is self.db
-        pyemma.coordinates.source(xtcfiles, top=pdbfile)
+        chainsaw.source(xtcfiles, top=pdbfile)
         self.assertEqual(self.db.num_entries, len(xtcfiles))
 
     def test_max_n_entries(self):
@@ -253,7 +253,7 @@ class TestTrajectoryInfoCache(unittest.TestCase):
                 f = os.path.join(td, "%s.npy" % i)
                 np.save(f, arr)
                 files.append(f)
-            pyemma.coordinates.source(files)
+            chainsaw.source(files)
         self.assertLessEqual(self.db.num_entries, max_entries)
         self.assertGreater(self.db.num_entries, 0)
 
@@ -269,7 +269,7 @@ class TestTrajectoryInfoCache(unittest.TestCase):
                 # save as txt to enforce creation of offsets
                 np.savetxt(f, arr)
                 files.append(f)
-            pyemma.coordinates.source(files)
+            chainsaw.source(files)
 
         self.assertLessEqual(os.stat(self.db.database_filename).st_size / 1024, config.traj_info_max_size)
         self.assertGreater(self.db.num_entries, 0)
@@ -279,7 +279,7 @@ class TestTrajectoryInfoCache(unittest.TestCase):
         self.db._database = SqliteDB(filename=None)
 
         # trigger caching
-        pyemma.coordinates.source(xtcfiles, top=pdbfile)
+        chainsaw.source(xtcfiles, top=pdbfile)
 
     def test_no_sqlite(self):
         # create new instance (init has to be called, install temporary import hook to raise importerror for sqlite3
@@ -312,7 +312,7 @@ class TestTrajectoryInfoCache(unittest.TestCase):
         try:
             config._cfg_dir = ''
             db = TrajectoryInfoCache()
-            reader = pyemma.coordinates.source(xtcfiles, top=pdbfile)
+            reader = chainsaw.source(xtcfiles, top=pdbfile)
 
             info = db[xtcfiles[0], reader]
             self.assertIsInstance(db._database, SqliteDB)

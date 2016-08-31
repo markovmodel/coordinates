@@ -34,8 +34,8 @@ from numpy.random import randint
 from numpy import floor, allclose
 import mdtraj as md
 
-from pyemma.coordinates.data.util.frames_from_file import frames_from_files as _frames_from_file
-from pyemma.coordinates.data.util.reader_utils import compare_coords_md_trajectory_objects
+from chainsaw.data.util.frames_from_file import frames_from_files as _frames_from_file
+from chainsaw.data.util.reader_utils import compare_coords_md_trajectory_objects
 
 
 class TestFramesFromFile(unittest.TestCase):

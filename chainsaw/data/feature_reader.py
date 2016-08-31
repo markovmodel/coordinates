@@ -21,11 +21,12 @@ from __future__ import absolute_import
 import mdtraj
 import numpy as np
 
+from chainsaw.data.util.fileformat_registry import FileFormatRegistry
 from ._base.datasource import DataSourceIterator, DataSource
 from ._base.random_accessible import RandomAccessStrategy
-from pyemma.coordinates.data.featurization.featurizer import MDFeaturizer
-from pyemma.coordinates.data.util.traj_info_cache import TrajInfo
-from pyemma.coordinates.util import patches
+from chainsaw.data.featurization.featurizer import MDFeaturizer
+from chainsaw.data.util.traj_info_cache import TrajInfo
+from chainsaw.util import patches
 from pyemma.util.annotators import deprecated, fix_docs
 
 
@@ -34,6 +35,13 @@ __all__ = ['FeatureReader']
 
 
 @fix_docs
+@FileFormatRegistry.register(
+    # NOTE: explicitly removed PDB here, since we only use it to obtain topology info, not traj data.
+   '.h5', '.nc', '.arc', '.crd', '.lammpstrj', '.binpos',
+    '.xtc', '.netcdf', '.mdcrd', '.rst7', '.ncdf', '.gro',
+    '.inpcrd', '.xyz.gz', '.pdb.gz', '.ncrst', '.trr', '.dtr',
+    '.lh5', '.xyz', '.hdf5', '.dcd', '.restrt',
+)
 class FeatureReader(DataSource):
     """
     Reads features from MD data.
@@ -119,11 +127,6 @@ class FeatureReader(DataSource):
 
         # Check that the topology and the files in the filelist can actually work together
         self._assert_toptraj_consistency()
-
-    @property
-    @deprecated('Please use "filenames" property.')
-    def trajfiles(self):
-        return self.filenames
 
     def _get_traj_info(self, filename):
         with mdtraj.open(filename, mode='r') as fh:
@@ -240,7 +243,7 @@ class FeatureReaderLinearItrajRandomAccessStrategy(FeatureReaderCuboidRandomAcce
 
         cumsum = np.cumsum(self._source.trajectory_lengths()[itrajs])
 
-        from pyemma.coordinates.clustering import UniformTimeClustering
+        from chainsaw.clustering import UniformTimeClustering
         ra = np.array([self._map_to_absolute_traj_idx(UniformTimeClustering._idx_to_traj_idx(x, cumsum), itrajs)
                        for x in frames])
 
@@ -283,7 +286,7 @@ class FeatureReaderLinearRandomAccessStrategy(RandomAccessStrategy):
         frames_order = frames.argsort().argsort()
         frames_sorted = np.sort(frames)
 
-        from pyemma.coordinates.clustering import UniformTimeClustering
+        from chainsaw.clustering import UniformTimeClustering
         ra_stride = np.array([UniformTimeClustering._idx_to_traj_idx(x, cumsum) for x in frames_sorted])
         data = np.empty((nframes, ndims), dtype=self._source.output_type())
 

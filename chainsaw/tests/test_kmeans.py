@@ -25,7 +25,7 @@ from __future__ import absolute_import
 import os
 import unittest
 
-from pyemma.coordinates.api import cluster_kmeans
+from chainsaw.api import cluster_kmeans
 from pyemma.util.files import TemporaryDirectory
 
 from six.moves import range

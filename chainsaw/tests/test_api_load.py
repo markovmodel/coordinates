@@ -27,11 +27,11 @@ from __future__ import absolute_import
 # unicode compat py2/3
 from six import text_type
 import unittest
-from pyemma.coordinates.api import load
+from chainsaw.api import load
 import os
 
 import numpy as np
-from pyemma.coordinates import api
+from chainsaw import api
 
 import pkg_resources
 path = pkg_resources.resource_filename(__name__, 'data') + os.path.sep

@@ -23,11 +23,11 @@ import six
 
 from pyemma._base.estimator import Estimator
 from pyemma._ext.sklearn.base import TransformerMixin
-from pyemma.coordinates.data import DataInMemory
-from pyemma.coordinates.data._base.datasource import DataSource, DataSourceIterator
-from pyemma.coordinates.data._base.iterable import Iterable
-from pyemma.coordinates.data._base.random_accessible import RandomAccessStrategy
-from pyemma.coordinates.util.change_notification import (inform_children_upon_change,
+from chainsaw.data import DataInMemory
+from chainsaw.data._base.datasource import DataSource, DataSourceIterator
+from chainsaw.data._base.iterable import Iterable
+from chainsaw.data._base.random_accessible import RandomAccessStrategy
+from chainsaw.util.change_notification import (inform_children_upon_change,
                                                          NotifyOnChangesMixIn)
 from pyemma.util.annotators import fix_docs
 from pyemma.util.exceptions import NotConvergedWarning

@@ -36,7 +36,7 @@ from mdtraj.core.trajectory import load, _TOPOLOGY_EXTS, _get_extension, open as
 from itertools import groupby
 from operator import itemgetter, attrgetter
 
-from pyemma.coordinates.data.util.reader_utils import copy_traj_attributes, preallocate_empty_trajectory
+from chainsaw.data.util.reader_utils import copy_traj_attributes, preallocate_empty_trajectory
 from six.moves import map
 
 TrajData = namedtuple("traj_data", ('xyz', 'unitcell_lengths', 'unitcell_angles', 'box'))

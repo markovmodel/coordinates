@@ -17,16 +17,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-r"""User-API for the pyemma.coordinates package
+r"""User-API for the chainsaw package
 
-.. currentmodule:: pyemma.coordinates.api
+.. currentmodule:: chainsaw.api
 """
 import numpy as _np
 import logging as _logging
 
 from pyemma.util import types as _types
 # lift this function to the api
-from pyemma.coordinates.util.stat import histogram
+from .util.stat import histogram
 
 from six import string_types as _string_types
 from six.moves import range, zip
@@ -74,7 +74,7 @@ def featurizer(topfile):
 
     Returns
     -------
-    feat : :class:`Featurizer <pyemma.coordinates.data.featurization.featurizer.MDFeaturizer>`
+    feat : :class:`Featurizer <chainsaw.data.featurization.featurizer.MDFeaturizer>`
 
     Examples
     --------
@@ -82,31 +82,31 @@ def featurizer(topfile):
     Create a featurizer and add backbone torsion angles to active features.
     Then use it in :func:`source`
 
-    >>> import pyemma.coordinates # doctest: +SKIP
-    >>> feat = pyemma.coordinates.featurizer('my_protein.pdb') # doctest: +SKIP
+    >>> import chainsaw # doctest: +SKIP
+    >>> feat = chainsaw.featurizer('my_protein.pdb') # doctest: +SKIP
     >>> feat.add_backbone_torsions() # doctest: +SKIP
-    >>> reader = pyemma.coordinates.source(["my_traj01.xtc", "my_traj02.xtc"], features=feat) # doctest: +SKIP
+    >>> reader = chainsaw.source(["my_traj01.xtc", "my_traj02.xtc"], features=feat) # doctest: +SKIP
 
     or
 
     >>> traj = mdtraj.load('my_protein.pdb') # # doctest: +SKIP
-    >>> feat = pyemma.coordinates.featurizer(traj.topology) # doctest: +SKIP
+    >>> feat = chainsaw.featurizer(traj.topology) # doctest: +SKIP
 
-    .. autoclass:: pyemma.coordinates.data.featurization.featurizer.MDFeaturizer
+    .. autoclass:: chainsaw.data.featurization.featurizer.MDFeaturizer
         :members:
         :undoc-members:
 
         .. rubric:: Methods
 
-        .. autoautosummary:: pyemma.coordinates.data.featurization.featurizer.MDFeaturizer
+        .. autoautosummary:: chainsaw.data.featurization.featurizer.MDFeaturizer
            :methods:
 
         .. rubric:: Attributes
 
-        .. autoautosummary:: pyemma.coordinates.data.featurization.featurizer.MDFeaturizer
+        .. autoautosummary:: chainsaw.data.featurization.featurizer.MDFeaturizer
             :attributes:
     """
-    from pyemma.coordinates.data.featurization.featurizer import MDFeaturizer
+    from chainsaw.data.featurization.featurizer import MDFeaturizer
     return MDFeaturizer(topfile)
 
 
@@ -183,7 +183,7 @@ def load(trajfiles, features=None, top=None, stride=1, chunk_size=None, **kw):
 
     See also
     --------
-    :func:`pyemma.coordinates.source`
+    :func:`chainsaw.source`
         if your memory is not big enough, specify data source and put it into your
         transformation or clustering algorithms instead of the loaded data. This
         will stream the data and save memory on the cost of longer processing
@@ -192,12 +192,12 @@ def load(trajfiles, features=None, top=None, stride=1, chunk_size=None, **kw):
     Examples
     --------
 
-    >>> from pyemma.coordinates import load
+    >>> from chainsaw import load
     >>> files = ['traj01.xtc', 'traj02.xtc'] # doctest: +SKIP
     >>> output = load(files, top='my_structure.pdb') # doctest: +SKIP
 
     """
-    from pyemma.coordinates.data.util.reader_utils import create_file_reader
+    from chainsaw.data.util.reader_utils import create_file_reader
 
     if isinstance(trajfiles, _string_types) or (
         isinstance(trajfiles, (list, tuple))
@@ -217,8 +217,8 @@ def source(inp, features=None, top=None, chunk_size=None, **kw):
     r""" Defines trajectory data source
 
     This function defines input trajectories without loading them. You can pass
-    the resulting object into transformers such as :func:`pyemma.coordinates.tica`
-    or clustering algorithms such as :func:`pyemma.coordinates.cluster_kmeans`.
+    the resulting object into transformers such as :func:`chainsaw.tica`
+    or clustering algorithms such as :func:`chainsaw.cluster_kmeans`.
     Then, the data will be streamed instead of being loaded, thus saving memory.
 
     You can also use this function to construct the first stage of a data
@@ -271,15 +271,15 @@ def source(inp, features=None, top=None, chunk_size=None, **kw):
 
     Returns
     -------
-    reader : :class:`DataSource <pyemma.coordinates.data._base.datasource.DataSource>` object
+    reader : :class:`DataSource <chainsaw.data._base.datasource.DataSource>` object
 
     See also
     --------
-    :func:`pyemma.coordinates.load`
+    :func:`chainsaw.load`
         If your memory is big enough to load all features into memory, don't
         bother using source - working in memory is faster!
 
-    :func:`pyemma.coordinates.pipeline`
+    :func:`chainsaw.pipeline`
         The data input is the first stage for your pipeline. Add other stages
         to it and build a pipeline to analyze big data in streaming mode.
 
@@ -289,7 +289,7 @@ def source(inp, features=None, top=None, chunk_size=None, **kw):
     Create a reader for NumPy files:
 
     >>> import numpy as np
-    >>> from pyemma.coordinates import source
+    >>> from chainsaw import source
     >>> reader = source(['001.npy', '002.npy'] # doctest: +SKIP
 
     Create a reader for trajectory files and select some distance as feature:
@@ -307,7 +307,7 @@ def source(inp, features=None, top=None, chunk_size=None, **kw):
 
     >>> data = np.random.random(int(1e7))
     >>> reader = source(data, chunk_size=5000)
-    >>> from pyemma.coordinates import cluster_regspace
+    >>> from chainsaw import cluster_regspace
     >>> regspace = cluster_regspace(reader, dmin=0.1)
 
     Returns
@@ -315,22 +315,22 @@ def source(inp, features=None, top=None, chunk_size=None, **kw):
 
     reader : a reader instance
 
-    .. autoclass:: pyemma.coordinates.data.interface.ReaderInterface
+    .. autoclass:: chainsaw.data.interface.ReaderInterface
         :members:
         :undoc-members:
 
         .. rubric:: Methods
 
-        .. autoautosummary:: pyemma.coordinates.data.interface.ReaderInterface
+        .. autoautosummary:: chainsaw.data.interface.ReaderInterface
             :methods:
 
         .. rubric:: Attributes
 
-        .. autoautosummary:: pyemma.coordinates.data.interface.ReaderInterface
+        .. autoautosummary:: chainsaw.data.interface.ReaderInterface
             :attributes:
 
     """
-    from pyemma.coordinates.data.util.reader_utils import create_file_reader
+    from chainsaw.data.util.reader_utils import create_file_reader
     # CASE 1: input is a string or list of strings
     # check: if single string create a one-element list
     if isinstance(inp, _string_types) or (
@@ -346,7 +346,7 @@ def source(inp, features=None, top=None, chunk_size=None, **kw):
         # check: if single array, create a one-element list
         # check: do all arrays have compatible dimensions (*, N)? If not: raise ValueError.
         # create MemoryReader
-        from pyemma.coordinates.data.data_in_memory import DataInMemory as _DataInMemory
+        from chainsaw.data.data_in_memory import DataInMemory as _DataInMemory
         reader = _DataInMemory(inp, chunksize=chunk_size if chunk_size else 5000, **kw)
     else:
         raise ValueError('unsupported type (%s) of input' % type(inp))
@@ -357,7 +357,7 @@ def source(inp, features=None, top=None, chunk_size=None, **kw):
 def pipeline(stages, run=True, stride=1, chunksize=1000):
     r""" Data analysis pipeline.
 
-    Constructs a data analysis :class:`Pipeline <pyemma.coordinates.pipelines.Pipeline>` and parametrizes it
+    Constructs a data analysis :class:`Pipeline <chainsaw.pipelines.Pipeline>` and parametrizes it
     (unless prevented).
     If this function takes too long, consider loading data in memory.
     Alternatively if the data is to large to be loaded into memory make use
@@ -389,14 +389,14 @@ def pipeline(stages, run=True, stride=1, chunksize=1000):
 
     Returns
     -------
-    pipe : :class:`Pipeline <pyemma.coordinates.pipelines.Pipeline>`
+    pipe : :class:`Pipeline <chainsaw.pipelines.Pipeline>`
         A pipeline object that is able to conduct big data analysis with
         limited memory in streaming mode.
 
     Examples
     --------
     >>> import numpy as np
-    >>> from pyemma.coordinates import source, tica, assign_to_centers, pipeline
+    >>> from chainsaw import source, tica, assign_to_centers, pipeline
 
     Create some random data and cluster centers:
     >>> data = np.random.random((1000, 3))
@@ -411,22 +411,22 @@ def pipeline(stages, run=True, stride=1, chunksize=1000):
     >>> pipe = pipeline([reader, tica_obj, assign])
     >>> pipe.parametrize()
 
-    .. autoclass:: pyemma.coordinates.pipelines.Pipeline
+    .. autoclass:: chainsaw.pipelines.Pipeline
         :members:
         :undoc-members:
 
         .. rubric:: Methods
 
-        .. autoautosummary:: pyemma.coordinates.pipelines.Pipeline
+        .. autoautosummary:: chainsaw.pipelines.Pipeline
            :methods:
 
         .. rubric:: Attributes
 
-        .. autoautosummary:: pyemma.coordinates.pipelines.Pipeline
+        .. autoautosummary:: chainsaw.pipelines.Pipeline
             :attributes:
 
     """
-    from pyemma.coordinates.pipelines import Pipeline
+    from chainsaw.pipelines import Pipeline
 
     if not isinstance(stages, list):
         stages = [stages]
@@ -457,14 +457,14 @@ def discretizer(reader,
     Parameters
     ----------
 
-    reader : instance of :class:`pyemma.coordinates.data.reader.ChunkedReader`
+    reader : instance of :class:`chainsaw.data.reader.ChunkedReader`
         The reader instance provides access to the data. If you are working
         with MD data, you most likely want to use a FeatureReader.
 
-    transform : instance of :class: `pyemma.coordinates.Transformer`
+    transform : instance of :class: `chainsaw.Transformer`
         an optional transform like PCA/TICA etc.
 
-    cluster : instance of :class: `pyemma.coordinates.AbstractClustering`
+    cluster : instance of :class: `chainsaw.AbstractClustering`
         clustering Transformer (optional) a cluster algorithm to assign
         transformed data to discrete states.
 
@@ -481,7 +481,7 @@ def discretizer(reader,
 
     Returns
     -------
-    pipe : a :class:`Pipeline <pyemma.coordinates.pipelines.Discretizer>` object
+    pipe : a :class:`Pipeline <chainsaw.pipelines.Discretizer>` object
         A pipeline object that is able to streamline data analysis of large
         amounts of input data with limited memory in streaming mode.
 
@@ -493,7 +493,7 @@ def discretizer(reader,
     with uniform time clustering:
 
     >>> import numpy as np
-    >>> from pyemma.coordinates import source, pca, cluster_regspace, discretizer
+    >>> from chainsaw import source, pca, cluster_regspace, discretizer
     >>> from pyemma.datasets import get_bpti_test_data
     >>> reader = source(get_bpti_test_data()['trajs'], top=get_bpti_test_data()['top'])
     >>> transform = pca(dim=2)
@@ -518,23 +518,23 @@ def discretizer(reader,
     ...     sorted(os.listdir(tmpdir))
     ['bpti_001-033.dtraj', 'bpti_034-066.dtraj', 'bpti_067-100.dtraj']
 
-    .. autoclass:: pyemma.coordinates.pipelines.Pipeline
+    .. autoclass:: chainsaw.pipelines.Pipeline
         :members:
         :undoc-members:
 
         .. rubric:: Methods
 
-        .. autoautosummary:: pyemma.coordinates.pipelines.Pipeline
+        .. autoautosummary:: chainsaw.pipelines.Pipeline
            :methods:
 
         .. rubric:: Attributes
 
-        .. autoautosummary:: pyemma.coordinates.pipelines.Pipeline
+        .. autoautosummary:: chainsaw.pipelines.Pipeline
             :attributes:
 
     """
-    from pyemma.coordinates.clustering.kmeans import KmeansClustering
-    from pyemma.coordinates.pipelines import Discretizer
+    from chainsaw.clustering.kmeans import KmeansClustering
+    from chainsaw.pipelines import Discretizer
     if cluster is None:
         _logger.warning('You did not specify a cluster algorithm.'
                         ' Defaulting to kmeans(k=100)')
@@ -561,9 +561,9 @@ def save_traj(traj_inp, indexes, outfile, top=None, stride = 1, chunksize=1000, 
             1. a python list of strings containing the filenames associated with
             the indices in :py:obj:`indexes`. With this type of input, a :py:obj:`topfile` is mandatory.
 
-            2. a :py:func:`pyemma.coordinates.data.feature_reader.FeatureReader`
+            2. a :py:func:`chainsaw.data.feature_reader.FeatureReader`
             object containing the filename list in :py:obj:`traj_inp.trajfiles`.
-            Please use :py:func:`pyemma.coordinates.source` to construct it.
+            Please use :py:func:`chainsaw.source` to construct it.
             With this type of input, the input :py:obj:`topfile` will be ignored.
             and :py:obj:`traj_inp.topfile` will be used instead
 
@@ -594,7 +594,7 @@ def save_traj(traj_inp, indexes, outfile, top=None, stride = 1, chunksize=1000, 
 
     chunksize : int. Default 1000.
         The chunksize for reading input trajectory files. If :py:obj:`traj_inp`
-        is a :py:func:`pyemma.coordinates.data.feature_reader.FeatureReader` object,
+        is a :py:func:`chainsaw.data.feature_reader.FeatureReader` object,
         this input variable will be ignored and :py:obj:`traj_inp.chunksize` will be used instead.
 
     image_molecules: boolean, default is False
@@ -612,10 +612,10 @@ def save_traj(traj_inp, indexes, outfile, top=None, stride = 1, chunksize=1000, 
     """
     from mdtraj import Topology, Trajectory
 
-    from pyemma.coordinates.data.feature_reader import FeatureReader
-    from pyemma.coordinates.data.fragmented_trajectory_reader import FragmentedTrajectoryReader
-    from pyemma.coordinates.data.util.frames_from_file import frames_from_files
-    from pyemma.coordinates.data.util.reader_utils import enforce_top
+    from chainsaw.data.feature_reader import FeatureReader
+    from chainsaw.data.fragmented_trajectory_reader import FragmentedTrajectoryReader
+    from chainsaw.data.util.frames_from_file import frames_from_files
+    from chainsaw.data.util.reader_utils import enforce_top
     import itertools
 
     # Determine the type of input and extract necessary parameters
@@ -687,8 +687,8 @@ def save_trajs(traj_inp, indexes, prefix='set_', fmt=None, outfiles=None,
 
     Parameters
     ----------
-    traj_inp : :py:class:`pyemma.coordinates.data.feature_reader.FeatureReader`
-        A data source as provided by Please use :py:func:`pyemma.coordinates.source` to construct it.
+    traj_inp : :py:class:`chainsaw.data.feature_reader.FeatureReader`
+        A data source as provided by Please use :py:func:`chainsaw.source` to construct it.
 
     indexes : list of ndarray(T_i, 2)
         A list of N arrays, each of size (T_n x 2) for writing N trajectories
@@ -799,8 +799,8 @@ def save_trajs(traj_inp, indexes, prefix='set_', fmt=None, outfiles=None,
 
 def _get_input_stage(previous_stage):
     # this is a pipelining stage, so let's parametrize from it
-    from pyemma.coordinates.data._base.iterable import Iterable
-    from pyemma.coordinates.data.data_in_memory import DataInMemory as _DataInMemory
+    from chainsaw.data._base.iterable import Iterable
+    from chainsaw.data.data_in_memory import DataInMemory as _DataInMemory
 
     if isinstance(previous_stage, Iterable):
         inputstage = previous_stage
@@ -866,7 +866,7 @@ def pca(data=None, dim=-1, var_cutoff=0.95, stride=1, mean=None, skip=0):
 
     dim : int, optional, default -1
         the number of dimensions (principal components) to project onto. A
-        call to the :func:`map <pyemma.coordinates.transform.PCA.map>` function reduces the d-dimensional
+        call to the :func:`map <chainsaw.transform.PCA.map>` function reduces the d-dimensional
         input to only dim dimensions such that the data preserves the
         maximum possible variance amongst dim-dimensional linear projections.
         -1 means all numerically available dimensions will be used unless
@@ -895,7 +895,7 @@ def pca(data=None, dim=-1, var_cutoff=0.95, stride=1, mean=None, skip=0):
 
     Returns
     -------
-    pca : a :class:`PCA<pyemma.coordinates.transform.PCA>` transformation object
+    pca : a :class:`PCA<chainsaw.transform.PCA>` transformation object
         Object for Principle component analysis (PCA) analysis.
         It contains PCA eigenvalues and eigenvectors, and the projection of
         input data to the dominant PCA
@@ -926,7 +926,7 @@ def pca(data=None, dim=-1, var_cutoff=0.95, stride=1, mean=None, skip=0):
     Create some input data:
 
     >>> import numpy as np
-    >>> from pyemma.coordinates import pca
+    >>> from chainsaw import pca
     >>> data = np.ones((1000, 2))
     >>> data[0, -1] = 0
 
@@ -940,23 +940,23 @@ def pca(data=None, dim=-1, var_cutoff=0.95, stride=1, mean=None, skip=0):
 
     See also
     --------
-    :class:`PCA <pyemma.coordinates.transform.PCA>` : pca object
+    :class:`PCA <chainsaw.transform.PCA>` : pca object
 
-    :func:`tica <pyemma.coordinates.tica>` : for time-lagged independent component analysis
+    :func:`tica <chainsaw.tica>` : for time-lagged independent component analysis
 
 
-    .. autoclass:: pyemma.coordinates.transform.pca.PCA
+    .. autoclass:: chainsaw.transform.pca.PCA
         :members:
         :undoc-members:
 
         .. rubric:: Methods
 
-        .. autoautosummary:: pyemma.coordinates.transform.pca.PCA
+        .. autoautosummary:: chainsaw.transform.pca.PCA
            :methods:
 
         .. rubric:: Attributes
 
-        .. autoautosummary:: pyemma.coordinates.transform.pca.PCA
+        .. autoautosummary:: chainsaw.transform.pca.PCA
             :attributes:
 
     References
@@ -970,7 +970,7 @@ def pca(data=None, dim=-1, var_cutoff=0.95, stride=1, mean=None, skip=0):
         J. Edu. Psych. 24, 417-441 and 498-520.
 
     """
-    from pyemma.coordinates.transform.pca import PCA
+    from chainsaw.transform.pca import PCA
 
     if mean is not None:
         import warnings
@@ -1012,7 +1012,7 @@ def tica(data=None, lag=10, dim=-1, var_cutoff=0.95, kinetic_map=True, stride=1,
 
     dim : int, optional, default -1
         the number of dimensions (independent components) to project onto. A
-        call to the :func:`map <pyemma.coordinates.transform.TICA.map>` function
+        call to the :func:`map <chainsaw.transform.TICA.map>` function
         reduces the d-dimensional input to only dim dimensions such that the
         data preserves the maximum possible autocorrelation amongst
         dim-dimensional linear projections. -1 means all numerically available
@@ -1055,7 +1055,7 @@ def tica(data=None, lag=10, dim=-1, var_cutoff=0.95, kinetic_map=True, stride=1,
 
     Returns
     -------
-    tica : a :class:`TICA <pyemma.coordinates.transform.TICA>` transformation object
+    tica : a :class:`TICA <chainsaw.transform.TICA>` transformation object
         Object for time-lagged independent component (TICA) analysis.
         it contains TICA eigenvalues and eigenvectors, and the projection of
         input data to the dominant TICA
@@ -1097,7 +1097,7 @@ def tica(data=None, lag=10, dim=-1, var_cutoff=0.95, kinetic_map=True, stride=1,
     Invoke TICA transformation with a given lag time and output dimension:
 
     >>> import numpy as np
-    >>> from pyemma.coordinates import tica
+    >>> from chainsaw import tica
     >>> data = np.random.random((100,3))
     >>> projected_data = tica(data, lag=2, dim=1).get_output()[0]
 
@@ -1107,23 +1107,23 @@ def tica(data=None, lag=10, dim=-1, var_cutoff=0.95, kinetic_map=True, stride=1,
 
     See also
     --------
-    :class:`TICA <pyemma.coordinates.transform.TICA>` : tica object
+    :class:`TICA <chainsaw.transform.TICA>` : tica object
 
-    :func:`pca <pyemma.coordinates.pca>` : for principal component analysis
+    :func:`pca <chainsaw.pca>` : for principal component analysis
 
 
-    .. autoclass:: pyemma.coordinates.transform.tica.TICA
+    .. autoclass:: chainsaw.transform.tica.TICA
         :members:
         :undoc-members:
 
         .. rubric:: Methods
 
-        .. autoautosummary:: pyemma.coordinates.transform.tica.TICA
+        .. autoautosummary:: chainsaw.transform.tica.TICA
            :methods:
 
         .. rubric:: Attributes
 
-        .. autoautosummary:: pyemma.coordinates.transform.tica.TICA
+        .. autoautosummary:: chainsaw.transform.tica.TICA
             :attributes:
 
     References
@@ -1146,7 +1146,7 @@ def tica(data=None, lag=10, dim=-1, var_cutoff=0.95, kinetic_map=True, stride=1,
         (in preparation).
 
     """
-    from pyemma.coordinates.transform.tica import TICA
+    from chainsaw.transform.tica import TICA
     if mean is not None:
         import warnings
         warnings.warn("user provided mean for TICA is deprecated and its value is ignored.")
@@ -1172,27 +1172,27 @@ def cluster_mini_batch_kmeans(data=None, k=100, max_iter=10, batch_size=0.2, met
 
     Returns
     -------
-    kmeans_mini : a :class:`MiniBatchKmeansClustering <pyemma.coordinates.clustering.MiniBatchKmeansClustering>` clustering object
+    kmeans_mini : a :class:`MiniBatchKmeansClustering <chainsaw.clustering.MiniBatchKmeansClustering>` clustering object
         Object for mini-batch kmeans clustering.
         It holds discrete trajectories and cluster center information.
 
     See also
     --------
-    :func:`kmeans <pyemma.coordinates.kmeans>` : for full k-means clustering
+    :func:`kmeans <chainsaw.kmeans>` : for full k-means clustering
 
 
-    .. autoclass:: pyemma.coordinates.clustering.kmeans.MiniBatchKmeansClustering
+    .. autoclass:: chainsaw.clustering.kmeans.MiniBatchKmeansClustering
         :members:
         :undoc-members:
 
         .. rubric:: Methods
 
-        .. autoautosummary:: pyemma.coordinates.clustering.kmeans.MiniBatchKmeansClustering
+        .. autoautosummary:: chainsaw.clustering.kmeans.MiniBatchKmeansClustering
            :methods:
 
         .. rubric:: Attributes
 
-        .. autoautosummary:: pyemma.coordinates.clustering.kmeans.MiniBatchKmeansClustering
+        .. autoautosummary:: chainsaw.clustering.kmeans.MiniBatchKmeansClustering
             :attributes:
 
     References
@@ -1200,7 +1200,7 @@ def cluster_mini_batch_kmeans(data=None, k=100, max_iter=10, batch_size=0.2, met
     .. [1] http://www.eecs.tufts.edu/~dsculley/papers/fastkmeans.pdf
 
     """
-    from pyemma.coordinates.clustering.kmeans import MiniBatchKmeansClustering
+    from chainsaw.clustering.kmeans import MiniBatchKmeansClustering
     res = MiniBatchKmeansClustering(n_clusters=k, max_iter=max_iter, metric=metric, init_strategy=init_strategy,
                                     batch_size=batch_size, n_jobs=n_jobs, skip=skip)
     return _param_stage(data, res, stride=1, chunk_size=chunk_size)
@@ -1212,10 +1212,10 @@ def cluster_kmeans(data=None, k=None, max_iter=10, tolerance=1e-5, stride=1,
     r"""k-means clustering
 
     If data is given, it performs a k-means clustering and then assigns the
-    data using a Voronoi discretization. It returns a :class:`KmeansClustering <pyemma.coordinates.clustering.KmeansClustering>`
+    data using a Voronoi discretization. It returns a :class:`KmeansClustering <chainsaw.clustering.KmeansClustering>`
     object that can be used to extract the discretized data sequences, or to
     assign other data points to the same partition. If data is not given, an
-    empty :class:`KmeansClustering <pyemma.coordinates.clustering.KmeansClustering>`
+    empty :class:`KmeansClustering <chainsaw.clustering.KmeansClustering>`
     will be created that still needs to be parametrized, e.g. in a :func:`pipeline`.
 
     Parameters
@@ -1270,7 +1270,7 @@ def cluster_kmeans(data=None, k=None, max_iter=10, tolerance=1e-5, stride=1,
 
     Returns
     -------
-    kmeans : a :class:`KmeansClustering <pyemma.coordinates.clustering.KmeansClustering>` clustering object
+    kmeans : a :class:`KmeansClustering <chainsaw.clustering.KmeansClustering>` clustering object
         Object for kmeans clustering.
         It holds discrete trajectories and cluster center information.
 
@@ -1279,7 +1279,7 @@ def cluster_kmeans(data=None, k=None, max_iter=10, tolerance=1e-5, stride=1,
     --------
 
     >>> import numpy as np
-    >>> import pyemma.coordinates as coor
+    >>> import chainsaw as coor
     >>> traj_data = [np.random.random((100, 3)), np.random.random((100,3))]
     >>> cluster_obj = coor.cluster_kmeans(traj_data, k=20, stride=1)
     >>> cluster_obj.get_output() # doctest: +ELLIPSIS
@@ -1288,18 +1288,18 @@ def cluster_kmeans(data=None, k=None, max_iter=10, tolerance=1e-5, stride=1,
     .. seealso:: **Theoretical background**: `Wiki page <http://en.wikipedia.org/wiki/K-means_clustering>`_
 
 
-    .. autoclass:: pyemma.coordinates.clustering.kmeans.KmeansClustering
+    .. autoclass:: chainsaw.clustering.kmeans.KmeansClustering
         :members:
         :undoc-members:
 
         .. rubric:: Methods
 
-        .. autoautosummary:: pyemma.coordinates.clustering.kmeans.KmeansClustering
+        .. autoautosummary:: chainsaw.clustering.kmeans.KmeansClustering
            :methods:
 
         .. rubric:: Attributes
 
-        .. autoautosummary:: pyemma.coordinates.clustering.kmeans.KmeansClustering
+        .. autoautosummary:: chainsaw.clustering.kmeans.KmeansClustering
             :attributes:
 
     References
@@ -1317,7 +1317,7 @@ def cluster_kmeans(data=None, k=None, max_iter=10, tolerance=1e-5, stride=1,
         Probability 1. University of California Press. pp. 281-297
 
     """
-    from pyemma.coordinates.clustering.kmeans import KmeansClustering
+    from chainsaw.clustering.kmeans import KmeansClustering
     res = KmeansClustering(n_clusters=k, max_iter=max_iter, metric=metric, tolerance=tolerance,
                            init_strategy=init_strategy, fixed_seed=fixed_seed, n_jobs=n_jobs, skip=skip)
     return _param_stage(data, res, stride=stride, chunk_size=chunk_size)
@@ -1329,10 +1329,10 @@ def cluster_uniform_time(data=None, k=None, stride=1, metric='euclidean',
 
     If given data, performs a clustering that selects data points uniformly in
     time and then assigns the data using a Voronoi discretization. Returns a
-    :class:`UniformTimeClustering <pyemma.coordinates.clustering.UniformTimeClustering>` object
+    :class:`UniformTimeClustering <chainsaw.clustering.UniformTimeClustering>` object
     that can be used to extract the discretized data sequences, or to assign
     other data points to the same partition. If data is not given, an empty
-    :class:`UniformTimeClustering <pyemma.coordinates.clustering.UniformTimeClustering>` will be created that
+    :class:`UniformTimeClustering <chainsaw.clustering.UniformTimeClustering>` will be created that
     still needs to be parametrized, e.g. in a :func:`pipeline`.
 
     Parameters
@@ -1369,27 +1369,27 @@ def cluster_uniform_time(data=None, k=None, stride=1, metric='euclidean',
 
     Returns
     -------
-    uniformTime : a :class:`UniformTimeClustering <pyemma.coordinates.clustering.UniformTimeClustering>` clustering object
+    uniformTime : a :class:`UniformTimeClustering <chainsaw.clustering.UniformTimeClustering>` clustering object
         Object for uniform time clustering.
         It holds discrete trajectories and cluster center information.
 
 
-    .. autoclass:: pyemma.coordinates.clustering.uniform_time.UniformTimeClustering
+    .. autoclass:: chainsaw.clustering.uniform_time.UniformTimeClustering
          :members:
          :undoc-members:
 
          .. rubric:: Methods
 
-         .. autoautosummary:: pyemma.coordinates.clustering.uniform_time.UniformTimeClustering
+         .. autoautosummary:: chainsaw.clustering.uniform_time.UniformTimeClustering
             :methods:
 
          .. rubric:: Attributes
 
-         .. autoautosummary:: pyemma.coordinates.clustering.uniform_time.UniformTimeClustering
+         .. autoautosummary:: chainsaw.clustering.uniform_time.UniformTimeClustering
              :attributes:
 
     """
-    from pyemma.coordinates.clustering.uniform_time import UniformTimeClustering 
+    from chainsaw.clustering.uniform_time import UniformTimeClustering
     res = UniformTimeClustering(k, metric=metric, n_jobs=n_jobs, skip=skip)
     return _param_stage(data, res, stride=stride, chunk_size=chunk_size)
 
@@ -1399,10 +1399,10 @@ def cluster_regspace(data=None, dmin=-1, max_centers=1000, stride=1, metric='euc
     r"""Regular space clustering
 
     If given data, it performs a regular space clustering [1]_ and returns a
-    :class:`RegularSpaceClustering <pyemma.coordinates.clustering.RegularSpaceClustering>` object that
+    :class:`RegularSpaceClustering <chainsaw.clustering.RegularSpaceClustering>` object that
     can be used to extract the discretized data sequences, or to assign other
     data points to the same partition. If data is not given, an empty
-    :class:`RegularSpaceClustering <pyemma.coordinates.clustering.RegularSpaceClustering>` will be created
+    :class:`RegularSpaceClustering <chainsaw.clustering.RegularSpaceClustering>` will be created
     that still needs to be parametrized, e.g. in a :func:`pipeline`.
 
     Regular space clustering is very similar to Hartigan's leader algorithm [2]_.
@@ -1450,23 +1450,23 @@ def cluster_regspace(data=None, dmin=-1, max_centers=1000, stride=1, metric='euc
 
     Returns
     -------
-    regSpace : a :class:`RegularSpaceClustering <pyemma.coordinates.clustering.RegularSpaceClustering>` clustering  object
+    regSpace : a :class:`RegularSpaceClustering <chainsaw.clustering.RegularSpaceClustering>` clustering  object
         Object for regular space clustering.
         It holds discrete trajectories and cluster center information.
 
 
-    .. autoclass:: pyemma.coordinates.clustering.regspace.RegularSpaceClustering
+    .. autoclass:: chainsaw.clustering.regspace.RegularSpaceClustering
         :members:
         :undoc-members:
 
         .. rubric:: Methods
 
-        .. autoautosummary:: pyemma.coordinates.clustering.regspace.RegularSpaceClustering
+        .. autoautosummary:: chainsaw.clustering.regspace.RegularSpaceClustering
            :methods:
 
         .. rubric:: Attributes
 
-        .. autoautosummary:: pyemma.coordinates.clustering.regspace.RegularSpaceClustering
+        .. autoautosummary:: chainsaw.clustering.regspace.RegularSpaceClustering
             :attributes:
 
     References
@@ -1481,7 +1481,7 @@ def cluster_regspace(data=None, dmin=-1, max_centers=1000, stride=1, metric='euc
     """
     if dmin == -1:
         raise ValueError("provide a minimum distance for clustering, e.g. 2.0")
-    from pyemma.coordinates.clustering.regspace import RegularSpaceClustering as _RegularSpaceClustering
+    from chainsaw.clustering.regspace import RegularSpaceClustering as _RegularSpaceClustering
     res = _RegularSpaceClustering(dmin, max_centers=max_centers, metric=metric,
                                   n_jobs=n_jobs, stride=stride, skip=skip)
     return _param_stage(data, res, stride=stride, chunk_size=chunk_size)
@@ -1533,7 +1533,7 @@ def assign_to_centers(data=None, centers=None, stride=1, return_dtrajs=True,
 
     Returns
     -------
-    assignment : list of integer arrays or an :class:`AssignCenters <pyemma.coordinates.clustering.AssignCenters>` object
+    assignment : list of integer arrays or an :class:`AssignCenters <chainsaw.clustering.AssignCenters>` object
         assigned data
 
     Examples
@@ -1552,25 +1552,25 @@ def assign_to_centers(data=None, centers=None, stride=1, return_dtrajs=True,
     [array([...
 
 
-    .. autoclass:: pyemma.coordinates.clustering.assign.AssignCenters
+    .. autoclass:: chainsaw.clustering.assign.AssignCenters
         :members:
         :undoc-members:
 
         .. rubric:: Methods
 
-        .. autoautosummary:: pyemma.coordinates.clustering.assign.AssignCenters
+        .. autoautosummary:: chainsaw.clustering.assign.AssignCenters
            :methods:
 
         .. rubric:: Attributes
 
-        .. autoautosummary:: pyemma.coordinates.clustering.assign.AssignCenters
+        .. autoautosummary:: chainsaw.clustering.assign.AssignCenters
             :attributes:
 
     """
     if centers is None:
         raise ValueError('You have to provide centers in form of a filename'
                          ' or NumPy array or a reader created by source function')
-    from pyemma.coordinates.clustering.assign import AssignCenters
+    from chainsaw.clustering.assign import AssignCenters
     res = AssignCenters(centers, metric=metric, n_jobs=n_jobs, skip=skip)
 
     parametrized_stage = _param_stage(data, res, stride=stride, chunk_size=chunk_size)

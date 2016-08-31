@@ -19,10 +19,10 @@
 
 r"""
 ===============================================================================
-clustering - Algorithms (:mod:`pyemma.coordinates.clustering`)
+clustering - Algorithms (:mod:`chainsaw.clustering`)
 ===============================================================================
 
-.. currentmodule: pyemma.coordinates.clustering
+.. currentmodule: chainsaw.clustering
 
 .. autosummary::
     :toctree: generated/

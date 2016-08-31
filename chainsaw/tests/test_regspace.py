@@ -27,9 +27,9 @@ from __future__ import absolute_import
 import itertools
 import unittest
 
-from pyemma.coordinates.clustering.regspace import RegularSpaceClustering
-from pyemma.coordinates.data.data_in_memory import DataInMemory
-from pyemma.coordinates.api import cluster_regspace
+from chainsaw.clustering.regspace import RegularSpaceClustering
+from chainsaw.data.data_in_memory import DataInMemory
+from chainsaw.api import cluster_regspace
 
 import numpy as np
 import pyemma.util.types as types

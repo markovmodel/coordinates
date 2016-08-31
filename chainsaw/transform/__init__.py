@@ -19,9 +19,9 @@
 
 r"""
 ===============================================================================
-transform - Transformation Utilities (:mod:`pyemma.coordinates.transform`)
+transform - Transformation Utilities (:mod:`chainsaw.transform`)
 ===============================================================================
-.. currentmodule:: pyemma.coordinates.transform
+.. currentmodule:: chainsaw.transform
 
 .. autosummary::
     :toctree: generated/

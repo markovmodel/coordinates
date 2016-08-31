@@ -1,7 +1,7 @@
 import unittest
 import numpy as np
 
-from pyemma.coordinates.data import DataInMemory
+from chainsaw.data import DataInMemory
 from pyemma.util.files import TemporaryDirectory
 import os
 from glob import glob
@@ -140,7 +140,7 @@ class TestCoordinatesIterator(unittest.TestCase):
                 t = 0
 
     def test_write_to_csv_propagate_filenames(self):
-        from pyemma.coordinates import source, tica
+        from chainsaw import source, tica
         with TemporaryDirectory() as td:
             data = [np.random.random((20, 3))] * 3
             fns = [os.path.join(td, f)

@@ -26,12 +26,15 @@ import functools
 
 import numpy as np
 
-from pyemma.coordinates.data._base.datasource import DataSourceIterator, DataSource
-from pyemma.coordinates.data.util.traj_info_cache import TrajInfo
+from chainsaw.data._base.datasource import DataSourceIterator, DataSource
+from chainsaw.data.util.traj_info_cache import TrajInfo
 from pyemma.util.annotators import fix_docs
+
+from chainsaw.data.util.fileformat_registry import FileFormatRegistry
 
 
 @fix_docs
+@FileFormatRegistry.register('.npy')
 class NumPyFileReader(DataSource):
 
     """reads NumPy files in chunks. Supports .npy files

@@ -23,10 +23,10 @@ from logging import getLogger
 import mdtraj as md
 import numpy as np
 
-from pyemma.coordinates import source
-from pyemma.coordinates.data import FeatureReader
-from pyemma.coordinates.data.fragmented_trajectory_reader import FragmentedTrajectoryReader
-from pyemma.coordinates.data.util.reader_utils import (copy_traj_attributes as _copy_traj_attributes,
+from chainsaw import source
+from chainsaw.data import FeatureReader
+from chainsaw.data.fragmented_trajectory_reader import FragmentedTrajectoryReader
+from chainsaw.data.util.reader_utils import (copy_traj_attributes as _copy_traj_attributes,
                                                        preallocate_empty_trajectory as _preallocate_empty_trajectory,
                                                        enforce_top as _enforce_top)
 from pyemma.util.annotators import deprecated

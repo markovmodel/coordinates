@@ -23,12 +23,12 @@ import unittest
 import os
 import tempfile
 
-from pyemma.coordinates.data import MDFeaturizer
+from chainsaw.data import MDFeaturizer
 from logging import getLogger
-import pyemma.coordinates.api as api
+import chainsaw.api as api
 import numpy as np
-from pyemma.coordinates.data.numpy_filereader import NumPyFileReader
-from pyemma.coordinates.data.py_csv_reader import PyCSVReader as CSVReader
+from chainsaw.data.numpy_filereader import NumPyFileReader
+from chainsaw.data.py_csv_reader import PyCSVReader as CSVReader
 import shutil
 
 

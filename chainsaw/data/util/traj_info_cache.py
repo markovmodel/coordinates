@@ -158,11 +158,11 @@ class TrajectoryInfoCache(object):
 
         try:
             import sqlite3
-            from pyemma.coordinates.data.util.traj_info_backends import SqliteDB
+            from chainsaw.data.util.traj_info_backends import SqliteDB
             self._database = SqliteDB(self.database_filename)
         except ImportError:
             warnings.warn("sqlite3 package not available, persistant storage of trajectory info not possible!")
-            from pyemma.coordinates.data.util.traj_info_backends import DictDB
+            from chainsaw.data.util.traj_info_backends import DictDB
             self._database = DictDB()
 
     @property
@@ -176,7 +176,7 @@ class TrajectoryInfoCache(object):
     def _handle_csv(self, reader, filename, length):
         # this is maybe a bit ugly, but so far we do not store the dialect of csv files in
         # the database, so we need to re-do this step in case of a cache hit.
-        from pyemma.coordinates.data import PyCSVReader
+        from chainsaw.data import PyCSVReader
         if not isinstance(reader, PyCSVReader):
             return
         with open(filename, PyCSVReader.DEFAULT_OPEN_MODE) as fh:

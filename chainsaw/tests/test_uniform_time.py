@@ -28,8 +28,8 @@ import unittest
 
 import numpy as np
 
-from pyemma.coordinates import api
-from pyemma.coordinates.data.data_in_memory import DataInMemory
+from chainsaw import api
+from chainsaw.data.data_in_memory import DataInMemory
 
 
 class TestUniformTimeClustering(unittest.TestCase):

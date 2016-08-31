@@ -28,8 +28,8 @@ from mdtraj.geometry.dihedral import (indices_phi,
                                       )
 import mdtraj
 
-from pyemma.coordinates.data.featurization._base import Feature
-from pyemma.coordinates.data.featurization.util import (_hash_numpy_array,
+from chainsaw.data.featurization._base import Feature
+from chainsaw.data.featurization.util import (_hash_numpy_array,
                                                         hash_top, _describe_atom)
 import numpy as np
 

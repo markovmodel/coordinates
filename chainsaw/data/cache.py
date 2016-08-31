@@ -216,7 +216,7 @@ class Cache(DataSource):
     def input_description(self):
         descriptions = []
 
-        from pyemma.coordinates.data import FeatureReader
+        from chainsaw.data import FeatureReader
         if isinstance(self._real_reader, FeatureReader):
             self.logger.debug("using describe() of FeatureReader")
             descriptions.append(self._real_reader.featurizer.describe())
@@ -226,7 +226,7 @@ class Cache(DataSource):
 
         # get params of estimators
         from pyemma._base.estimator import Estimator
-        from pyemma.coordinates.transform.transformer import StreamingTransformer
+        from chainsaw.transform.transformer import StreamingTransformer
 
         dp = self.data_producer
         while dp is not dp.data_producer:

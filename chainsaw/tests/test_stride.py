@@ -26,7 +26,7 @@ import os
 import tempfile
 import numpy as np
 import mdtraj
-import pyemma.coordinates as coor
+import chainsaw as coor
 from six.moves import range
 from six.moves import zip
 

@@ -26,15 +26,15 @@ import os
 
 import numpy as np
 
-from pyemma.coordinates.data import DataInMemory
-from pyemma.coordinates.data import MDFeaturizer
-from pyemma.coordinates import api
+from chainsaw.data import DataInMemory
+from chainsaw.data import MDFeaturizer
+from chainsaw import api
 import msmtools.generation as msmgen
 import tempfile
 from six.moves import range
 import pkg_resources
 from pyemma.util.files import TemporaryDirectory
-import pyemma.coordinates as coor
+import chainsaw as coor
 
 class TestPipeline(unittest.TestCase):
     @classmethod
@@ -85,7 +85,7 @@ class TestPipeline(unittest.TestCase):
         source = coor.source(np.array(X_t))
 
         t1 = coor.tica(source)
-        from pyemma.coordinates.transform import TICA
+        from chainsaw.transform import TICA
         t2 = TICA(lag=10)
         assert len(t1._stream_children) == 0
         t2.data_producer = t1

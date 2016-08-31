@@ -24,12 +24,12 @@ from pyemma.util.types import is_string
 import mdtraj
 import six
 
-from pyemma.coordinates.data.featurization.util import (_parse_pairwise_input,
+from chainsaw.data.featurization.util import (_parse_pairwise_input,
                                                         _parse_groupwise_input)
 
 from .misc import CustomFeature
 import numpy as np
-from pyemma.coordinates.util.patches import load_topology_cached
+from chainsaw.util.patches import load_topology_cached
 from mdtraj import load_topology as load_topology_uncached
 
 
@@ -466,7 +466,7 @@ class MDFeaturizer(Loggable):
                             ):
         r"""
         Adds the minimum distance between groups of atoms to the feature list. If the groups of
-        atoms are identical to residues, use :py:obj:`add_residue_mindist <pyemma.coordinates.data.featurizer.MDFeaturizer.add_residue_mindist>`.
+        atoms are identical to residues, use :py:obj:`add_residue_mindist <chainsaw.data.featurizer.MDFeaturizer.add_residue_mindist>`.
 
         Parameters
         ----------

@@ -18,7 +18,7 @@
 
 from __future__ import absolute_import
 
-from numpy import vstack
+# TODO: remove
 import mdtraj as md
 import numpy as np
 import os
@@ -41,10 +41,10 @@ def create_file_reader(input_files, topology, featurizer, chunk_size=1000, **kw)
         The chunk size with which the corresponding reader gets initialized.
     :return: Returns the reader.
     """
-    from pyemma.coordinates.data.numpy_filereader import NumPyFileReader
-    from pyemma.coordinates.data.py_csv_reader import PyCSVReader
-    from pyemma.coordinates.data import FeatureReader
-    from pyemma.coordinates.data.fragmented_trajectory_reader import FragmentedTrajectoryReader
+    from chainsaw.data.numpy_filereader import NumPyFileReader
+    from chainsaw.data.py_csv_reader import PyCSVReader
+    from chainsaw.data import FeatureReader
+    from chainsaw.data.fragmented_trajectory_reader import FragmentedTrajectoryReader
 
     # fragmented trajectories
     if (isinstance(input_files, (list, tuple)) and len(input_files) > 0 and
@@ -87,21 +87,25 @@ def create_file_reader(input_files, topology, featurizer, chunk_size=1000, **kw)
                                  " or did not exist:\n%s" % err_msg)
 
             if all_exist:
-                from mdtraj.formats.registry import FormatRegistry
+                import sys
+                if 'mdtraj' in sys.modules:
+                    from mdtraj.formats.registry import FormatRegistry
 
-                # CASE 1.1: file types are MD files
-                if suffix in list(FormatRegistry.loaders.keys()):
-                    # check: do we either have a featurizer or a topology file name? If not: raise ValueError.
-                    # create a MD reader with file names and topology
-                    if not featurizer and not topology:
-                        raise ValueError("The input files were MD files which makes it mandatory to have either a "
-                                         "featurizer or a topology file.")
+                    # CASE 1.1: file types are MD files
+                    if suffix in list(FormatRegistry.loaders.keys()):
+                        # check: do we either have a featurizer or a topology file name? If not: raise ValueError.
+                        # create a MD reader with file names and topology
+                        if not featurizer and not topology:
+                            raise ValueError("The input files were MD files which makes it mandatory to have either a "
+                                             "featurizer or a topology file.")
 
-                    reader = FeatureReader(input_list, featurizer=featurizer, topologyfile=topology,
-                                           chunksize=chunk_size)
+                        reader = FeatureReader(input_list, featurizer=featurizer, topologyfile=topology,
+                                               chunksize=chunk_size)
                 else:
-                    if suffix in ['.npy', '.npz']:
-                        reader = NumPyFileReader(input_list, chunksize=chunk_size)
+                    from chainsaw.data.util.fileformat_registry import FileFormatRegistry
+                    if suffix in FileFormatRegistry.keys():
+                        clazz = FileFormatRegistry.readers[suffix]
+                        return clazz(input_list, chunk_size=chunk_size)
                     # otherwise we assume that given files are ascii tabulated data
                     else:
                         reader = PyCSVReader(input_list, chunksize=chunk_size, **kw)
@@ -154,7 +158,7 @@ def preallocate_empty_trajectory(top, n_frames=1):
     :return: empty_traj: empty md.Trajectory object with n_frames
     """
     # to assign via [] operator to Trajectory objects
-    from pyemma.coordinates.util.patches import trajectory_set_item
+    from chainsaw.util.patches import trajectory_set_item
     md.Trajectory.__setitem__ = trajectory_set_item
 
     return md.Trajectory(np.zeros((n_frames, top.n_atoms, 3)),
@@ -181,7 +185,7 @@ def enforce_top(top):
 def save_traj_w_md_load_frame(reader, sets):
     # Creates a single trajectory object from a "sets" array via md.load_frames
     traj = None
-    for file_idx, frame_idx in vstack(sets):
+    for file_idx, frame_idx in np.vstack(sets):
         if traj is None:
             traj = md.load_frame(reader.filenames[file_idx], frame_idx, reader.topfile)
         else:

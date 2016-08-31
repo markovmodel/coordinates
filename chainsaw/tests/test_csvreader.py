@@ -27,7 +27,7 @@ import unittest
 import tempfile
 import os
 
-from pyemma.coordinates.data.py_csv_reader import PyCSVReader as CSVReader
+from chainsaw.data.py_csv_reader import PyCSVReader as CSVReader
 import shutil
 
 

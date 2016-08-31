@@ -19,8 +19,8 @@ import itertools
 
 import numpy as np
 
-from pyemma.coordinates.data._base.datasource import DataSource, DataSourceIterator
-from pyemma.coordinates.data.util.reader_utils import preallocate_empty_trajectory
+from chainsaw.data._base.datasource import DataSource, DataSourceIterator
+from chainsaw.data.util.reader_utils import preallocate_empty_trajectory
 from pyemma.util.annotators import fix_docs
 
 
@@ -161,7 +161,7 @@ class _FragmentedTrajectoryIterator(object):
         return self.__next__()
 
     def _allocate_chunk(self, expected_length, ndim):
-        from pyemma.coordinates.data.feature_reader import FeatureReader
+        from chainsaw.data.feature_reader import FeatureReader
         if all(isinstance(r, FeatureReader) and r._return_traj_obj for r in self._readers):
             X = preallocate_empty_trajectory(n_frames=expected_length,
                                              top=self._readers[0].featurizer.topology)
@@ -334,7 +334,7 @@ class FragmentedTrajectoryReader(DataSource):
         # number of trajectories
         self._ntraj = len(trajectories)
         # store readers
-        from pyemma.coordinates.api import source
+        from chainsaw.api import source
 
         self._readers = [[source(input_item, features=featurizer, top=topologyfile, chunk_size=chunksize)
                           for input_item in trajectories[itraj]] for itraj in range(0, self._ntraj)]

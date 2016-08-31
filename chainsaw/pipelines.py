@@ -17,13 +17,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import absolute_import
-#from pyemma.coordinates.clustering.interface import AbstractClustering
-from pyemma.coordinates.transform.transformer import StreamingTransformer
-from pyemma.coordinates.data.feature_reader import FeatureReader
+#from chainsaw.clustering.interface import AbstractClustering
+from chainsaw.transform.transformer import StreamingTransformer
+from chainsaw.data.feature_reader import FeatureReader
 
 from logging import getLogger
-from pyemma.coordinates.data._base.iterable import Iterable
-from pyemma.coordinates.data._base.datasource import DataSource
+from chainsaw.data._base.iterable import Iterable
+from chainsaw.data._base.datasource import DataSource
 
 __all__ = ['Discretizer',
            'Pipeline',
@@ -197,7 +197,7 @@ class Discretizer(Pipeline):
         if cluster is None:
             raise ValueError('Must specify a clustering algorithm!')
         else:
-            from pyemma.coordinates.clustering.interface import AbstractClustering
+            from chainsaw.clustering.interface import AbstractClustering
             assert isinstance(cluster, AbstractClustering), \
                 'cluster is not of the correct type'
 
@@ -245,7 +245,7 @@ class Discretizer(Pipeline):
 
         clustering = self._chain[-1]
         reader = self._chain[0]
-        from pyemma.coordinates.clustering.interface import AbstractClustering
+        from chainsaw.clustering.interface import AbstractClustering
         assert isinstance(clustering, AbstractClustering)
 
         trajfiles = None

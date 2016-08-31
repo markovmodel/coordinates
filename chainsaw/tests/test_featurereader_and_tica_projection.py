@@ -33,8 +33,8 @@ import unittest
 from nose.plugins.attrib import attr
 import mdtraj
 
-from pyemma.coordinates.api import tica
-from pyemma.coordinates.data.feature_reader import FeatureReader
+from chainsaw.api import tica
+from chainsaw.data.feature_reader import FeatureReader
 from pyemma.util.contexts import numpy_random_seed
 from logging import getLogger
 from six.moves import range
@@ -119,7 +119,7 @@ class TestFeatureReaderAndTICAProjection(unittest.TestCase):
             np.testing.assert_allclose(ic_cov_tau, check.cov_tau, atol=1e-8)
 
     def test_partial_fit(self):
-        from pyemma.coordinates import source
+        from chainsaw import source
         reader = source(self.trajnames, top=self.temppdb)
         reader_output = reader.get_output()
 

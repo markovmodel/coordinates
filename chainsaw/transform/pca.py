@@ -22,12 +22,12 @@ from __future__ import absolute_import
 import math
 
 from pyemma._base.model import Model
-from pyemma._base.progress.reporter import ProgressReporter
-from pyemma.coordinates.transform.transformer import StreamingTransformer
+from progress_reporter import ProgressReporter
+from chainsaw.transform.transformer import StreamingTransformer
 from pyemma.util.annotators import fix_docs
 from pyemma.util.reflection import get_default_args
 
-from pyemma.coordinates.estimators.covar.running_moments import running_covar
+#from chainsaw.estimators.covar.running_moments import running_covar
 import numpy as np
 from decorator import decorator
 
@@ -77,7 +77,7 @@ class PCA(StreamingTransformer, ProgressReporter):
         ----------
         dim : int, optional, default -1
             the number of dimensions (independent components) to project onto. A call to the
-            :func:`map <pyemma.coordinates.transform.TICA.map>` function reduces the d-dimensional
+            :func:`map <chainsaw.transform.TICA.map>` function reduces the d-dimensional
             input to only dim dimensions such that the data preserves the maximum possible autocorrelation
             amongst dim-dimensional linear projections.
             -1 means all numerically available dimensions will be used unless reduced by var_cutoff.
@@ -156,7 +156,7 @@ class PCA(StreamingTransformer, ProgressReporter):
         self._model.mean = value
 
     def partial_fit(self, X):
-        from pyemma.coordinates import source
+        from chainsaw import source
         iterable = source(X)
 
         self._estimate(iterable, partial=True)

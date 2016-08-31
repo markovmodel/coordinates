@@ -26,10 +26,10 @@ import glob
 import tempfile
 import unittest
 
-from pyemma.coordinates import api
-from pyemma.coordinates.api import discretizer, tica, source
-from pyemma.coordinates.data.data_in_memory import DataInMemoryIterator
-from pyemma.coordinates.data.feature_reader import FeatureReader
+from chainsaw import api
+from chainsaw.api import discretizer, tica, source
+from chainsaw.data.data_in_memory import DataInMemoryIterator
+from chainsaw.data.feature_reader import FeatureReader
 from logging import getLogger
 import mdtraj
 import pkg_resources
@@ -37,7 +37,7 @@ import pkg_resources
 from six.moves import range
 import numpy as np
 
-from pyemma.coordinates.tests.util import create_traj
+from chainsaw.tests.util import create_traj
 
 log = getLogger('pyemma.' + 'TestFeatureReader')
 
@@ -160,8 +160,8 @@ class TestFeatureReader(unittest.TestCase):
                 np.testing.assert_equal(x, ref)
 
     def test_cols_with_features(self):
-        trajs = glob.glob(pkg_resources.resource_filename('pyemma.coordinates.tests', 'data/bpti_mini.xtc'))
-        top = pkg_resources.resource_filename('pyemma.coordinates.tests', 'data/bpti_ca.pdb')
+        trajs = glob.glob(pkg_resources.resource_filename('chainsaw.tests', 'data/bpti_mini.xtc'))
+        top = pkg_resources.resource_filename('chainsaw.tests', 'data/bpti_ca.pdb')
         reader = api.source(trajs, top=top)
         feat = reader.featurizer
         inds = feat.pairs(feat.select('name CA'))

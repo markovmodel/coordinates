@@ -87,7 +87,7 @@ class Iterable(six.with_metaclass(ABCMeta, ProgressReporter, Loggable)):
         assert self._in_memory
         self._mapping_to_mem_active = True
         self._Y = self.get_output(stride=stride)
-        from pyemma.coordinates.data import DataInMemory
+        from chainsaw.data import DataInMemory
         self._Y_source = DataInMemory(self._Y)
         self._mapping_to_mem_active = False
 
@@ -123,7 +123,7 @@ class Iterable(six.with_metaclass(ABCMeta, ProgressReporter, Loggable)):
         Examples
         --------
 
-        >>> from pyemma.coordinates import source; import numpy as np
+        >>> from chainsaw import source; import numpy as np
         >>> data = [np.arange(3), np.arange(4, 7)]
         >>> reader = source(data)
         >>> iterator = reader.iterator(chunk=1)
@@ -137,7 +137,7 @@ class Iterable(six.with_metaclass(ABCMeta, ProgressReporter, Loggable)):
         1 [[6]]
         """
         if self.in_memory:
-            from pyemma.coordinates.data.data_in_memory import DataInMemory
+            from chainsaw.data.data_in_memory import DataInMemory
             return DataInMemory(self._Y).iterator(
                     lag=lag, chunk=chunk, stride=stride, return_trajindex=return_trajindex, skip=skip
             )
@@ -191,7 +191,7 @@ class Iterable(six.with_metaclass(ABCMeta, ProgressReporter, Loggable)):
 
         # create iterator
         if self.in_memory and not self._mapping_to_mem_active:
-            from pyemma.coordinates.data.data_in_memory import DataInMemory
+            from chainsaw.data.data_in_memory import DataInMemory
             assert self._Y is not None
             it = DataInMemory(self._Y)._create_iterator(skip=skip, chunk=chunk,
                                                         stride=stride, return_trajindex=True)
@@ -261,7 +261,7 @@ class Iterable(six.with_metaclass(ABCMeta, ProgressReporter, Loggable)):
         >>> from pyemma.util.files import TemporaryDirectory
         >>> import os
         >>> data = [np.random.random((10,3))] * 3
-        >>> reader = pyemma.coordinates.source(data)
+        >>> reader = chainsaw.source(data)
         >>> filename = "distances_{itraj}.dat"
         >>> with TemporaryDirectory() as td:
         ...    os.chdir(td)

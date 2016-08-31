@@ -35,14 +35,14 @@ import pkg_resources
 import numpy as np
 import pyemma
 
-import pyemma.coordinates as coor
+import chainsaw as coor
 import mdtraj as md
-from pyemma.coordinates.data.util.reader_utils import single_traj_from_n_files, save_traj_w_md_load_frame, \
+from chainsaw.data.util.reader_utils import single_traj_from_n_files, save_traj_w_md_load_frame, \
     compare_coords_md_trajectory_objects
-from pyemma.coordinates.api import save_traj
+from chainsaw.api import save_traj
 from six.moves import range
 
-from pyemma.coordinates.tests.util import create_traj, get_top
+from chainsaw.tests.util import create_traj, get_top
 
 
 class TestSaveTraj(unittest.TestCase):
@@ -224,7 +224,7 @@ class TestSaveTraj(unittest.TestCase):
     def test_invalid_maximum_traj_index(self):
         frag_traj = [[self.trajfiles[0], self.trajfiles[1]], self.trajfiles[2], self.trajfiles[2]]
         set = [[0,2], [0,1], [2,42]]
-        from pyemma.coordinates.data.fragmented_trajectory_reader import FragmentedTrajectoryReader
+        from chainsaw.data.fragmented_trajectory_reader import FragmentedTrajectoryReader
         reader = FragmentedTrajectoryReader(frag_traj, topologyfile=self.pdbfile)
         with self.assertRaises(ValueError) as cm:
             save_traj(reader, set, None)
@@ -232,7 +232,7 @@ class TestSaveTraj(unittest.TestCase):
 
     def test_invalid_readers_in_frag_traj(self):
         data = [np.array([[[1,2], [3,4]],[0,1]])]
-        from pyemma.coordinates.data.fragmented_trajectory_reader import FragmentedTrajectoryReader
+        from chainsaw.data.fragmented_trajectory_reader import FragmentedTrajectoryReader
         reader = FragmentedTrajectoryReader(data)
         with self.assertRaises(ValueError) as cm:
             save_traj(reader, self.sets, None)

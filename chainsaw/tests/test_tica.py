@@ -29,11 +29,11 @@ import os
 import pkg_resources
 import numpy as np
 
-from pyemma.coordinates import api
+from chainsaw import api
 
-from pyemma.coordinates.data.data_in_memory import DataInMemory
-from pyemma.coordinates import source, tica
-from pyemma.coordinates.transform import TICA as _internal_tica
+from chainsaw.data.data_in_memory import DataInMemory
+from chainsaw import source, tica
+from chainsaw.transform import TICA as _internal_tica
 from pyemma.util.contexts import numpy_random_seed
 from logging import getLogger
 import pyemma.util.types as types

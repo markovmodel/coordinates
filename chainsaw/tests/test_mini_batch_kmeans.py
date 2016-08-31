@@ -20,7 +20,7 @@ from __future__ import absolute_import
 import unittest
 from unittest import TestCase
 import numpy as np
-from pyemma.coordinates.api import cluster_mini_batch_kmeans
+from chainsaw.api import cluster_mini_batch_kmeans
 
 
 class TestMiniBatchKmeans(TestCase):

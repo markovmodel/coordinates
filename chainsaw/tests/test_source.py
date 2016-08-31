@@ -23,9 +23,9 @@ import unittest
 import os
 import numpy as np
 
-from pyemma.coordinates.data import MDFeaturizer
+from chainsaw.data import MDFeaturizer
 from logging import getLogger
-import pyemma.coordinates.api as api
+import chainsaw.api as api
 import pyemma.util.types as types
 import pkg_resources
 
@@ -34,7 +34,7 @@ logger = getLogger('pyemma.'+'TestReaderUtils')
 
 class TestSource(unittest.TestCase):
     def setUp(self):
-        path = pkg_resources.resource_filename('pyemma.coordinates.tests', 'data') + os.path.sep
+        path = pkg_resources.resource_filename('chainsaw.tests', 'data') + os.path.sep
         self.pdb_file = os.path.join(path, 'bpti_ca.pdb')
         self.traj_files = [
             os.path.join(path, 'bpti_001-033.xtc'),

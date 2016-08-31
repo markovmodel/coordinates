@@ -20,12 +20,12 @@ Created on 15.02.2016
 
 @author: marscher
 '''
-from pyemma.coordinates.data.featurization.util import (_catch_unhashable,
+from chainsaw.data.featurization.util import (_catch_unhashable,
                                                         _describe_atom,
                                                         hash_top, _hash_numpy_array)
 import numpy as np
 import mdtraj
-from pyemma.coordinates.data.featurization._base import Feature
+from chainsaw.data.featurization._base import Feature
 
 
 class CustomFeature(Feature):
@@ -54,7 +54,7 @@ class CustomFeature(Feature):
     --------
     We define a feature that transforms all coordinates by :math:`1 / x^2`:
 
-    >>> from pyemma.coordinates import source
+    >>> from chainsaw import source
     >>> from pyemma.datasets import get_bpti_test_data
     >>> inp = get_bpti_test_data()
 

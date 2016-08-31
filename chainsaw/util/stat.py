@@ -32,7 +32,7 @@ def histogram(transform, dimensions, nbins):
 
     Parameters
     ----------
-    transform : pyemma.coordinates.transfrom.Transformer object
+    transform : chainsaw.transfrom.Transformer object
         transform that provides the input data
     dimensions : tuple of indices
         indices of the dimensions you want to examine

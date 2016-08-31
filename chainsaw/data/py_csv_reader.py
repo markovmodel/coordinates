@@ -30,6 +30,7 @@ import numpy as np
 import six
 from six.moves import range
 
+from chainsaw.data.util.fileformat_registry import FileFormatRegistry
 from ._base.datasource import DataSourceIterator, DataSource
 from .util.traj_info_cache import TrajInfo
 
@@ -188,6 +189,7 @@ def _dialect_to_str(dialect):
     return str(s.read())
 
 
+@FileFormatRegistry.register('.txt', '.dat', '.csv')
 class PyCSVReader(DataSource):
     r""" Reader for tabulated ASCII data
 

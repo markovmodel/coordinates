@@ -27,15 +27,15 @@ import numpy as np
 import pkg_resources
 from six.moves import range
 
-import pyemma.coordinates.api as coor
-from pyemma.coordinates.data import DataInMemory, FeatureReader
-from pyemma.coordinates.data.fragmented_trajectory_reader import FragmentedTrajectoryReader
-from pyemma.coordinates.tests.util import create_traj, get_top
+import chainsaw.api as coor
+from chainsaw.data import DataInMemory, FeatureReader
+from chainsaw.data.fragmented_trajectory_reader import FragmentedTrajectoryReader
+from chainsaw.tests.util import create_traj, get_top
 from pyemma.util.files import TemporaryDirectory
 
 
 def _test_ra_with_format(format, stride):
-    from pyemma.coordinates.tests.test_featurereader import create_traj
+    from chainsaw.tests.test_featurereader import create_traj
 
     topfile = pkg_resources.resource_filename(__name__, 'data/test.pdb')
     trajfiles = []
@@ -138,19 +138,19 @@ class TestRandomAccessStride(TestCase):
         tica = coor.tica(feature_reader)
         # everything normal
         assert tica.is_random_accessible
-        from pyemma.coordinates.transform.transformer import StreamingTransformerRandomAccessStrategy
+        from chainsaw.transform.transformer import StreamingTransformerRandomAccessStrategy
         assert isinstance(tica._ra_jagged, StreamingTransformerRandomAccessStrategy)
 
         # set to memory
         tica.in_memory = True
         assert tica.is_random_accessible
-        from pyemma.coordinates.data.data_in_memory import DataInMemoryJaggedRandomAccessStrategy
+        from chainsaw.data.data_in_memory import DataInMemoryJaggedRandomAccessStrategy
         assert isinstance(tica._ra_jagged, DataInMemoryJaggedRandomAccessStrategy)
 
         # not in memory anymore, expect to fall back
         tica.in_memory = False
         assert tica.is_random_accessible
-        from pyemma.coordinates.transform.transformer import StreamingTransformerRandomAccessStrategy
+        from chainsaw.transform.transformer import StreamingTransformerRandomAccessStrategy
         assert isinstance(tica._ra_jagged, StreamingTransformerRandomAccessStrategy)
 
         # remove data source

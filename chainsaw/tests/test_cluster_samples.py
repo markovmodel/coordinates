@@ -29,7 +29,7 @@ from __future__ import absolute_import
 import unittest
 
 import numpy as np
-import pyemma.coordinates as coor
+import chainsaw as coor
 
 class TestClusterSamples(unittest.TestCase):
     @classmethod
