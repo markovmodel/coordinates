@@ -27,8 +27,8 @@ from __future__ import absolute_import
 
 import warnings
 
-from pyemma.coordinates.clustering import regspatial
-from pyemma.coordinates.clustering.interface import AbstractClustering
+from . import regspatial
+from .interface import AbstractClustering
 from pyemma.util.annotators import fix_docs
 from pyemma.util.exceptions import NotConvergedWarning
 

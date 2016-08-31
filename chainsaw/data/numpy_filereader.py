@@ -63,12 +63,13 @@ class NumPyFileReader(DataSource):
         self.filenames = filenames
 
     def _create_iterator(self, skip=0, chunk=0, stride=1, return_trajindex=False, cols=None):
-        return NPYIterator(self, skip=skip, chunk=chunk, stride=stride, 
+        return NPYIterator(self, skip=skip, chunk=chunk, stride=stride,
                            return_trajindex=return_trajindex, cols=cols)
 
     def describe(self):
-        return "[NumpyFileReader arrays with shape %s]" % [np.shape(x)
-                                                           for x in self._data]
+        shapes = [(l, self.ndim) for l
+                  in self._lengths]
+        return "[NumpyFileReader arrays with shapes: %s]" % shapes
 
     def _reshape(self, array):
         """

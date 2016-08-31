@@ -21,9 +21,12 @@ from math import ceil
 import numpy as np
 import six
 
-from pyemma.coordinates.data._base.iterable import Iterable
-from pyemma.coordinates.data._base.random_accessible import TrajectoryRandomAccessible
+from .iterable import Iterable
+from .random_accessible import TrajectoryRandomAccessible
+
+# TODO: remove this ref
 from pyemma.util import config
+
 from six import string_types
 import os
 
@@ -74,7 +77,7 @@ class DataSource(Iterable, TrajectoryRandomAccessible):
             self.logger.warning("duplicate files/arrays detected")
             filename_list = list(uniq)
 
-        from pyemma.coordinates.data.data_in_memory import DataInMemory
+        from ..data_in_memory import DataInMemory
 
         if self._is_reader:
             if isinstance(self, DataInMemory):
@@ -107,7 +110,7 @@ class DataSource(Iterable, TrajectoryRandomAccessible):
             offsets = []
             ndims = []
             # avoid cyclic imports
-            from pyemma.coordinates.data.util.traj_info_cache import TrajectoryInfoCache
+            from ..util.traj_info_cache import TrajectoryInfoCache
             if len(filename_list) > 3:
                 self._progress_register(len(filename_list), 'Obtaining file info')
             for filename in filename_list:
@@ -410,6 +413,10 @@ class DataSourceIterator(six.with_metaclass(ABCMeta)):
     @property
     def use_cols(self):
         return self.state.cols
+
+    @use_cols.setter
+    def use_cols(self, val):
+        self.state.cols = val
 
     @property
     def skip(self):

@@ -21,8 +21,8 @@ from __future__ import absolute_import
 import mdtraj
 import numpy as np
 
-from pyemma.coordinates.data._base.datasource import DataSourceIterator, DataSource
-from pyemma.coordinates.data._base.random_accessible import RandomAccessStrategy
+from ._base.datasource import DataSourceIterator, DataSource
+from ._base.random_accessible import RandomAccessStrategy
 from pyemma.coordinates.data.featurization.featurizer import MDFeaturizer
 from pyemma.coordinates.data.util.traj_info_cache import TrajInfo
 from pyemma.coordinates.util import patches
