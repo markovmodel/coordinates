@@ -1,2 +1,2 @@
 include versioneer.py
-include src/_version.py
+include chainsaw/_version.py
