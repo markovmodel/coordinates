@@ -209,7 +209,7 @@ static struct PyModuleDef moduledef = {
 #define INITERROR return NULL
 
 PyObject *
-PyInit_regspatial(void)
+PyInit__regspatial(void)
 
 #else // py2
 #define INITERROR return

@@ -613,7 +613,7 @@ static struct PyModuleDef moduledef = {
 #define INITERROR return NULL
 
 PyObject *
-PyInit_kmeans_clustering(void)
+PyInit__kmeans_clustering(void)
 
 #else // py2
 #define INITERROR return

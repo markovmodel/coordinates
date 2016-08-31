@@ -31,7 +31,7 @@ from six.moves import range, zip
 
 from pyemma._base.model import Model
 from pyemma._ext.sklearn.base import ClusterMixin
-from . import regspatial
+from . import _regspatial as _regspatial
 from chainsaw.transform.transformer import StreamingTransformer
 
 from chainsaw.util.annotators import fix_docs
@@ -196,8 +196,8 @@ class AbstractClustering(StreamingTransformer, Model, ClusterMixin):
     def _transform_array(self, X):
         """get closest index of point in :attr:`clustercenters` to x."""
         dtraj = np.empty(X.shape[0], dtype=self.output_type())
-        regspatial.assign(X.astype(np.float32, order='C', copy=False),
-                          self.clustercenters, dtraj, self.metric, self.n_jobs)
+        _regspatial.assign(X.astype(np.float32, order='C', copy=False),
+                           self.clustercenters, dtraj, self.metric, self.n_jobs)
         res = dtraj[:, None]  # always return a column vector in this function
         return res
 

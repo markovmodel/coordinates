@@ -104,7 +104,7 @@ def extensions():
     else:
         lib_prefix = ''
     regspatial_module = \
-        Extension(__pkg_name+'.clustering.regspatial',
+        Extension(__pkg_name+'.clustering._regspatial',
                   sources=[os.path.join(__pkg_name, 'clustering/src/regspatial.c'),
                            os.path.join(__pkg_name, 'clustering/src/clustering.c')],
                   include_dirs=[
@@ -116,7 +116,7 @@ def extensions():
                   library_dirs=[mdtraj.capi()['lib_dir']],
                   extra_compile_args=['-std=c99', '-g', '-O3', '-pg'])
     kmeans_module = \
-        Extension(__pkg_name+'.clustering.kmeans_clustering',
+        Extension(__pkg_name+'.clustering._kmeans_clustering',
                   sources=[
                       os.path.join(__pkg_name, 'clustering/src/kmeans.c'),
                       os.path.join(__pkg_name, 'clustering/src/clustering.c')],

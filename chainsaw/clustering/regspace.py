@@ -27,7 +27,7 @@ from __future__ import absolute_import
 
 import warnings
 
-from . import regspatial
+from . import _regspatial
 from .interface import AbstractClustering
 from chainsaw.util.annotators import fix_docs
 from pyemma.util.exceptions import NotConvergedWarning
@@ -140,9 +140,9 @@ class RegularSpaceClustering(AbstractClustering):
             with it:
                 for X in it:
                     used_frames += len(X)
-                    regspatial.cluster(X.astype(np.float32, order='C', copy=False),
-                                       clustercenters, self.dmin,
-                                       self.metric, self.max_centers)
+                    _regspatial.cluster(X.astype(np.float32, order='C', copy=False),
+                                        clustercenters, self.dmin,
+                                        self.metric, self.max_centers)
         except RuntimeError:
             msg = 'Maximum number of cluster centers reached.' \
                   ' Consider increasing max_centers or choose' \

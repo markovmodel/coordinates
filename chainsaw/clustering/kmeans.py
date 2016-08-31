@@ -37,7 +37,7 @@ from chainsaw.util.contexts import conditional, random_seed
 from six.moves import range
 import numpy as np
 
-from . import kmeans_clustering
+from . import _kmeans_clustering
 
 
 __all__ = ['KmeansClustering']
@@ -155,16 +155,16 @@ class KmeansClustering(AbstractClustering, ProgressReporter):
         converged_in_max_iter = False
         prev_cost = 0
         while it < self.max_iter:
-            self._cluster_centers_iter = kmeans_clustering.cluster(
+            self._cluster_centers_iter = _kmeans_clustering.cluster(
                                                 self._in_memory_chunks,
                                                 self._cluster_centers_iter,
                                                 self.metric)
             self._cluster_centers_iter = [row for row in self._cluster_centers_iter]
 
-            cost = kmeans_clustering.cost_function(self._in_memory_chunks,
-                                                   self._cluster_centers_iter,
-                                                   self.metric,
-                                                   self.n_clusters)
+            cost = _kmeans_clustering.cost_function(self._in_memory_chunks,
+                                                    self._cluster_centers_iter,
+                                                    self.metric,
+                                                    self.n_clusters)
             rel_change = np.abs(cost - prev_cost) / cost
             prev_cost = cost
 
@@ -238,9 +238,9 @@ class KmeansClustering(AbstractClustering, ProgressReporter):
                     if len(self._cluster_centers_iter) < self.n_clusters and t + l in self._init_centers_indices[itraj]:
                         self._cluster_centers_iter.append(X[l].astype(np.float32, order='C'))
         elif last_chunk and self.init_strategy == 'kmeans++':
-            kmeans_clustering.set_callback(self.kmeanspp_center_assigned)
-            cc = kmeans_clustering.init_centers(self._in_memory_chunks,
-                                                self.metric, self.n_clusters, not self.fixed_seed)
+            _kmeans_clustering.set_callback(self.kmeanspp_center_assigned)
+            cc = _kmeans_clustering.init_centers(self._in_memory_chunks,
+                                                 self.metric, self.n_clusters, not self.fixed_seed)
             self._cluster_centers_iter = [c for c in cc]
 
     def _collect_data(self, X, first_chunk):
@@ -333,15 +333,15 @@ class MiniBatchKmeansClustering(KmeansClustering):
                     first_chunk = False
 
                 # one pass over data completed
-                self._cluster_centers_iter = kmeans_clustering.cluster(self._in_memory_chunks,
-                                                                       self._cluster_centers_iter,
-                                                                       self.metric)
+                self._cluster_centers_iter = _kmeans_clustering.cluster(self._in_memory_chunks,
+                                                                        self._cluster_centers_iter,
+                                                                        self.metric)
                 self._cluster_centers_iter = [row for row in self._cluster_centers_iter]
 
-                cost = kmeans_clustering.cost_function(self._in_memory_chunks,
-                                                       self._cluster_centers_iter,
-                                                       self.metric,
-                                                       self.n_clusters)
+                cost = _kmeans_clustering.cost_function(self._in_memory_chunks,
+                                                        self._cluster_centers_iter,
+                                                        self.metric,
+                                                        self.n_clusters)
 
                 rel_change = np.abs(cost - prev_cost) / cost
                 prev_cost = cost
