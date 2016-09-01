@@ -128,8 +128,18 @@ def extensions():
                   library_dirs=[mdtraj.capi()['lib_dir']],
                   extra_compile_args=['-std=c99'])
 
+    covar_module = \
+        Extension(__pkg_name+'.ext.variational.estimators.covar_c.covartools',
+                  sources=[os.path.join(__pkg_name, 'ext/variational/estimators/covar_c/covartools.pyx'),
+                           os.path.join(__pkg_name, 'ext/variational/estimators/covar_c/_covartools.c')],
+                  include_dirs=[os.path.join(__pkg_name, 'ext/variational/estimators/covar_c/'),
+                                np_inc,
+                                ],
+                  extra_compile_args=['-std=c99', '-O3'])
+
     exts += [regspatial_module,
              kmeans_module,
+             covar_module,
              ]
 
     if not USE_CYTHON:
