@@ -5,5 +5,5 @@ build
 *.so
 *.egg-info/
 
-*/ext/variational/estimators/covar_c/covartools.c
+*/ext/variational_estimators/covar_c/covartools.c
 
