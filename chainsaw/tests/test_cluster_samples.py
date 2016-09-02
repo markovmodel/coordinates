@@ -31,10 +31,8 @@ import unittest
 import numpy as np
 import chainsaw as coor
 
+
 class TestClusterSamples(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        super(TestClusterSamples, cls).setUpClass()
 
     def setUp(self):
         self.input_trajs = [[0,1,2],

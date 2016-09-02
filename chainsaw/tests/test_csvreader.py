@@ -35,7 +35,7 @@ class TestCSVReader(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.dir = tempfile.mkdtemp(prefix='pyemma_filereader')
+        cls.dir = tempfile.mkdtemp(prefix='filereader')
         cls.nt = 300
         cls.nd = 4
         cls.data = np.arange(cls.nt * cls.nd).reshape(cls.nt, cls.nd)

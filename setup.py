@@ -196,8 +196,7 @@ metadata = dict(
     maintainer='Martin K. Scherer',
     maintainer_email='m.scherer@fu-berlin.de',
     author='The Emma team',
-    author_email='info@emma-project.org',
-    url='http://github.com/markovmodel/PyEMMA',
+    url='http://github.com/markovmodel/???',
     license='LGPLv3+',
     description=DOCLINES[0],
     long_description=open('README.rst', encoding='utf8').read(),
@@ -214,6 +213,7 @@ metadata = dict(
                       'psutil>=3.1.1',
                       'decorator>=4.0.0',
                       'progress-reporter',
+                      'pyyaml',
                       ],
     zip_safe=False,
 )
@@ -233,11 +233,8 @@ else:
                                   'mdtraj>=1.7.0',
                                   ]
     if sys.version_info.major == 2:
-        # kick it since causes headages with conda recently...
-        #metadata['install_requires'] += ['mock']
+        # Python2 only deps
         pass
-
-  
 
     # when on git, we require cython
     if os.path.exists('.git'):

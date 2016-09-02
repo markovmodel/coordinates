@@ -41,13 +41,13 @@ class TestNumPyFileReader(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
 
-        cls.logger = getLogger('pyemma.'+cls.__class__.__name__)
+        cls.logger = getLogger('chainsaw.'+cls.__class__.__name__)
 
         d = np.arange(3 * 100).reshape((100, 3))
         cls.d2 = np.arange(300, 900).reshape((200,3))
         d_1d = np.random.random(100)
 
-        cls.dir = tempfile.mkdtemp(prefix='pyemma_npyreader')
+        cls.dir = tempfile.mkdtemp(prefix='npyreader')
 
         cls.f1 = tempfile.mktemp(suffix='.npy', dir=cls.dir)
         cls.f2 = tempfile.mktemp(suffix='.npy', dir=cls.dir)

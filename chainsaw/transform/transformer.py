@@ -21,16 +21,16 @@ from __future__ import absolute_import
 from abc import ABCMeta, abstractmethod
 import six
 
-from pyemma._base.estimator import Estimator
-from pyemma._ext.sklearn.base import TransformerMixin
+from chainsaw.base.estimator import Estimator
+from chainsaw._ext.sklearn_base import TransformerMixin
 from chainsaw.data import DataInMemory
 from chainsaw.data._base.datasource import DataSource, DataSourceIterator
 from chainsaw.data._base.iterable import Iterable
 from chainsaw.data._base.random_accessible import RandomAccessStrategy
 from chainsaw.util.change_notification import (inform_children_upon_change,
-                                                         NotifyOnChangesMixIn)
+                                               NotifyOnChangesMixIn)
 from chainsaw.util.annotators import fix_docs
-from pyemma.util.exceptions import NotConvergedWarning
+from chainsaw.util.exceptions import NotConvergedWarning
 from six.moves import range
 import numpy as np
 

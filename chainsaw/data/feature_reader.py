@@ -37,7 +37,7 @@ __all__ = ['FeatureReader']
 @fix_docs
 @FileFormatRegistry.register(
     # NOTE: explicitly removed PDB here, since we only use it to obtain topology info, not traj data.
-   '.h5', '.nc', '.arc', '.crd', '.lammpstrj', '.binpos',
+    '.h5', '.nc', '.arc', '.crd', '.lammpstrj', '.binpos',
     '.xtc', '.netcdf', '.mdcrd', '.rst7', '.ncdf', '.gro',
     '.inpcrd', '.xyz.gz', '.pdb.gz', '.ncrst', '.trr', '.dtr',
     '.lh5', '.xyz', '.hdf5', '.dcd', '.restrt',
@@ -65,11 +65,11 @@ class FeatureReader(DataSource):
 
     Examples
     --------
-    >>> from pyemma.datasets import get_bpti_test_data
+    >>> from chainsaw.tests.util import get_bpti_test_data
 
     Iterator access:
-
-    >>> reader = FeatureReader(get_bpti_test_data()['trajs'], get_bpti_test_data()['top'])
+    >>> files, topology = get_bpti_test_data()
+    >>> reader = FeatureReader(files, topologyfile=topology)
 
     Optionally set a chunksize
 

@@ -111,3 +111,7 @@ from ._version import get_versions
 __version__ = get_versions()['version']
 version = __version__
 del get_versions
+
+from chainsaw.tests.util import _monkey_patch_testing_apply_setting
+_monkey_patch_testing_apply_setting()
+del _monkey_patch_testing_apply_setting

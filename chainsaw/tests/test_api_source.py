@@ -32,7 +32,7 @@ from chainsaw.data.py_csv_reader import PyCSVReader as CSVReader
 import shutil
 
 
-logger = getLogger('pyemma.'+'TestReaderUtils')
+logger = getLogger('chainsaw.'+'TestReaderUtils')
 
 
 class TestApiSourceFileReader(unittest.TestCase):

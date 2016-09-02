@@ -28,9 +28,9 @@ import numpy as np
 from chainsaw._ext.variational_estimators import running_covar
 from chainsaw.util.annotators import fix_docs, deprecated
 from decorator import decorator
-from pyemma._base.model import Model
-from pyemma.util.linalg import eig_corr
-from pyemma.util.reflection import get_default_args
+from chainsaw.base.model import Model
+from chainsaw.util.linalg import eig_corr
+from chainsaw.util.reflection import get_default_args
 
 from .transformer import StreamingTransformer
 
@@ -218,17 +218,19 @@ class TICA(StreamingTransformer):
 
         Parameters
         ----------
-        X: array, list of arrays, PyEMMA reader
+        X: array, list of arrays, chainsaw.data._base.iterable.Iterable
             input data.
 
         Notes
         -----
         The projection matrix is first being calculated upon its first access.
         """
-        from chainsaw import source
-        iterable = source(X)
+        from chainsaw.data._base.iterable import Iterable
+        if not isinstance(X, Iterable):
+            from chainsaw import source
+            X = source(X)
 
-        self._estimate(iterable, partial=True)
+        self._estimate(X, partial=True)
         self._estimated = False
 
         return self

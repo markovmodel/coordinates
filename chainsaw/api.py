@@ -121,7 +121,7 @@ def load(trajfiles, features=None, top=None, stride=1, chunk_size=None, **kw):
     ----------
     trajfiles : str, list of str or nested list (one level) of str
         A filename or a list of filenames to trajectory files that can be
-        processed by pyemma. Both molecular dynamics trajectory files and raw
+        processed by chainsaw. Both molecular dynamics trajectory files and raw
         data files (tabulated ASCII or binary) can be loaded.
 
         If a nested list of filenames is given, eg.:
@@ -492,10 +492,10 @@ def discretizer(reader,
     with a PCA transformation and cluster the principal components
     with uniform time clustering:
 
-    >>> import numpy as np
     >>> from chainsaw import source, pca, cluster_regspace, discretizer
-    >>> from pyemma.datasets import get_bpti_test_data
-    >>> reader = source(get_bpti_test_data()['trajs'], top=get_bpti_test_data()['top'])
+    >>> from chainsaw.tests.util import get_bpti_test_data
+    >>> files, top = get_bpti_test_data()
+    >>> reader = source(files, top=top)
     >>> transform = pca(dim=2)
     >>> cluster = cluster_regspace(dmin=0.1)
     >>> disc = discretizer(reader, transform, cluster)
@@ -511,7 +511,7 @@ def discretizer(reader,
 
     This will store the discrete trajectory to "traj01.dtraj":
 
-    >>> from pyemma.util.files import TemporaryDirectory
+    >>> from chainsaw.util.files import TemporaryDirectory
     >>> import os
     >>> with TemporaryDirectory('dtrajs') as tmpdir:
     ...     disc.save_dtrajs(output_dir=tmpdir)

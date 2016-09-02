@@ -30,7 +30,7 @@ import warnings
 from . import _regspatial
 from .interface import AbstractClustering
 from chainsaw.util.annotators import fix_docs
-from pyemma.util.exceptions import NotConvergedWarning
+from chainsaw.util.exceptions import NotConvergedWarning
 
 import numpy as np
 

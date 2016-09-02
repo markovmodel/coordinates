@@ -80,7 +80,7 @@ class Pipeline(object):
         """
         if not isinstance(e, Iterable):
             raise TypeError("given element {} is not iterable in terms of "
-                            "PyEMMAs coordinate pipeline.".format(e))
+                            "coordinate pipeline.".format(e))
 
         # only if we have more than one element
         if not e.is_reader and len(self._chain) >= 1:

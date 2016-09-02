@@ -3,10 +3,10 @@ from collections import defaultdict
 
 import h5py
 import numpy as np
-from chainsaw._base.logging import Loggable
+from chainsaw.base.loggable import Loggable
 from chainsaw.util.annotators import fix_docs
 from chainsaw.util.units import bytes_to_string
-from progress_reporter import ProgressReporter
+from chainsaw.base.reporter import ProgressReporter
 from chainsaw import config
 
 from ._base.datasource import DataSource
@@ -224,14 +224,14 @@ class Cache(DataSource):
             descriptions.append((self._real_reader.ndim))
 
         # get params of estimators
-        from pyemma._base.estimator import Estimator
+        from chainsaw.base.estimator import Estimator
         from chainsaw.transform.transformer import StreamingTransformer
 
         dp = self.data_producer
         while dp is not dp.data_producer:
             # add output dimension
             descriptions.append(dp.ndim)
-            if isinstance(dp, Estimator):
+            if hasattr(dp, '_estimated'):  # duck-type chainsaw.base.estimator.Estimator
                 descriptions.append(repr(dp))
                 # this is too fine-grained...
                 #if dp._estimated:

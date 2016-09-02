@@ -43,7 +43,7 @@ class PrecisionWarning(RuntimeWarning):
 
 class NotConvergedWarning(RuntimeWarning):
     r"""
-    This warning indicates that some iterative procdure has not
+    This warning indicates that some iterative procedure has not
     converged or reached the maximum number of iterations implemented
     as a safe guard to prevent arbitrary many iterations in loops with
     a conditional termination criterion.
@@ -63,7 +63,7 @@ class ParserWarning(UserWarning):
 
 
 class ConfigDirectoryException(Exception):
-    """ Some operation with PyEMMAs configuration directory went wrong. """
+    """ Some operation with the configuration directory went wrong. """
     pass
 
 
