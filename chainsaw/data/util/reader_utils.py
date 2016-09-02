@@ -98,9 +98,9 @@ def create_file_reader(input_files, topology, featurizer, chunk_size=1000, **kw)
                         reader = clazz(input_list, chunksize=chunk_size, **kw)
                 else:
                     import pprint
-                    raise ValueError("Extension {ext} not supported. Supported extensions are {exts}"
-                                     .format(ext=suffix, exts=pprint.pformat(
-                                        FileFormatRegistry.supported_extensions())))
+                    exts = pprint.pformat(sorted(FileFormatRegistry.supported_extensions()))
+                    raise ValueError("Extension {ext} not supported. Supported extensions are:\n{exts}"
+                                     .format(ext=suffix, exts=exts))
         else:
             raise ValueError("Not all elements in the input list were of the type %s!" % suffix)
     else:
