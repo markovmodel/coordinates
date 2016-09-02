@@ -206,7 +206,8 @@ metadata = dict(
     keywords=['data'],
     packages=find_packages(),
     cmdclass=get_cmdclass(),
-    package_data={'chainsaw': ['_resources/*']},
+    package_data={'chainsaw': ['_resources/*'],
+                  'chainsaw.tests': ['data/*']},
     # runtime dependencies
     install_requires=['numpy>=1.7.0',
                       'scipy>=0.11',

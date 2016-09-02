@@ -2,3 +2,4 @@ include versioneer.py
 include chainsaw/_version.py
 
 recursive-include chainsaw/_resources *
+recursive-include chainsaw/tests/data *
