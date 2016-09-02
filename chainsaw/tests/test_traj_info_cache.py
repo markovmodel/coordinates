@@ -29,7 +29,7 @@ import tempfile
 import unittest
 
 import mock
-
+import chainsaw
 from chainsaw import api
 from chainsaw.data.feature_reader import FeatureReader
 from chainsaw.data.numpy_filereader import NumPyFileReader
@@ -37,13 +37,15 @@ from chainsaw.data.py_csv_reader import PyCSVReader
 from chainsaw.data.util.traj_info_backends import SqliteDB
 from chainsaw.data.util.traj_info_cache import TrajectoryInfoCache
 from chainsaw.tests.util import create_traj
+
 from pyemma.datasets import get_bpti_test_data
 from pyemma.util import config
+
 from chainsaw.util.contexts import settings
 from chainsaw.util.files import TemporaryDirectory
 import mdtraj
 import pkg_resources
-import pyemma
+
 import numpy as np
 
 xtcfiles = get_bpti_test_data()['trajs']

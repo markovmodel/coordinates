@@ -167,6 +167,7 @@ class TestDataInMemory(unittest.TestCase):
     def test_chunksize(self):
         data = np.random.randn(200, 2)
         cs = 100
+        import chainsaw
         source = chainsaw.source(data, chunk_size=cs)
         source.chunksize = 100
         for i, ch in source.iterator():

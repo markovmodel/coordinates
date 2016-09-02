@@ -7,6 +7,7 @@ import numpy as np
 from pyemma.util import config
 
 from ..data.cache import Cache
+import chainsaw
 
 
 class ProfilerCase(unittest.TestCase):
