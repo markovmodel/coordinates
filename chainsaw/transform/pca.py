@@ -27,12 +27,12 @@ from chainsaw.transform.transformer import StreamingTransformer
 from chainsaw.util.annotators import fix_docs
 from decorator import decorator
 from progress_reporter import ProgressReporter
-from pyemma._base.model import Model
-from pyemma.util.reflection import get_default_args
+from chainsaw.base.model import Model
+from chainsaw.util.reflection import get_default_args
 
 
 __all__ = ['PCA']
-__author__ = 'noe'
+__author__ = 'noe, marscher'
 
 
 @decorator

@@ -36,9 +36,8 @@ from chainsaw.data.numpy_filereader import NumPyFileReader
 from chainsaw.data.py_csv_reader import PyCSVReader
 from chainsaw.data.util.traj_info_backends import SqliteDB
 from chainsaw.data.util.traj_info_cache import TrajectoryInfoCache
-from chainsaw.tests.util import create_traj
+from chainsaw.tests.util import create_traj, get_bpti_test_data
 
-from pyemma.datasets import get_bpti_test_data
 from chainsaw import config
 
 from chainsaw.util.contexts import settings
@@ -48,8 +47,7 @@ import pkg_resources
 
 import numpy as np
 
-xtcfiles = get_bpti_test_data()['trajs']
-pdbfile = get_bpti_test_data()['top']
+xtcfiles, pdbfile = get_bpti_test_data()
 
 
 class TestTrajectoryInfoCache(unittest.TestCase):
@@ -322,7 +320,7 @@ class TestTrajectoryInfoCache(unittest.TestCase):
             directory = db._database._database_from_key(info.hash_value)
             assert directory is None
         finally:
-            from pyemma.util.exceptions import ConfigDirectoryException
+            from chainsaw.util.exceptions import ConfigDirectoryException
             try:
                 config.cfg_dir = old_cfg_dir
             except ConfigDirectoryException:

@@ -23,7 +23,7 @@ import numpy as np
 from scipy import sparse
 
 import six
-from pyemma.util.reflection import getargspec_no_self
+from chainsaw.util.reflection import getargspec_no_self
 
 ###############################################################################
 def clone(estimator, safe=True):

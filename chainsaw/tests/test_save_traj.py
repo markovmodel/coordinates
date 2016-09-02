@@ -33,12 +33,11 @@ import tempfile
 import pkg_resources
 
 import numpy as np
-import pyemma
 
 import chainsaw as coor
 import mdtraj as md
-from chainsaw.data.util.reader_utils import single_traj_from_n_files, save_traj_w_md_load_frame, \
-    compare_coords_md_trajectory_objects
+from chainsaw.data.util.reader_utils import (save_traj_w_md_load_frame,
+    compare_coords_md_trajectory_objects)
 from chainsaw.api import save_traj
 from six.moves import range
 

@@ -224,14 +224,14 @@ class Cache(DataSource):
             descriptions.append((self._real_reader.ndim))
 
         # get params of estimators
-        from pyemma._base.estimator import Estimator
+        from chainsaw.base.estimator import Estimator
         from chainsaw.transform.transformer import StreamingTransformer
 
         dp = self.data_producer
         while dp is not dp.data_producer:
             # add output dimension
             descriptions.append(dp.ndim)
-            if isinstance(dp, Estimator):
+            if hasattr(dp, '_estimated'):  # duck-type chainsaw.base.estimator.Estimator
                 descriptions.append(repr(dp))
                 # this is too fine-grained...
                 #if dp._estimated:

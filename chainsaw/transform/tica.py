@@ -28,9 +28,9 @@ import numpy as np
 from chainsaw._ext.variational_estimators import running_covar
 from chainsaw.util.annotators import fix_docs, deprecated
 from decorator import decorator
-from pyemma._base.model import Model
-from pyemma.util.linalg import eig_corr
-from pyemma.util.reflection import get_default_args
+from chainsaw.base.model import Model
+from chainsaw.util.linalg import eig_corr
+from chainsaw.util.reflection import get_default_args
 
 from .transformer import StreamingTransformer
 

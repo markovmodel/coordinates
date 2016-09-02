@@ -364,7 +364,7 @@ class TestTICAExtensive(unittest.TestCase):
         data = [np.empty((20, 3)), np.empty((10, 3))]
         lag = 11
         tica_obj = tica(lag=lag)
-        from pyemma.util.testing_tools import MockLoggingHandler
+        from chainsaw.tests.util import MockLoggingHandler
         log_handler = MockLoggingHandler()
         tica_obj.logger.addHandler(log_handler)
         for x in data:

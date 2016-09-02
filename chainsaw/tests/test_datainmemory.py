@@ -17,7 +17,6 @@
 
 
 from __future__ import absolute_import
-import pyemma
 from six.moves import range
 from six.moves import zip
 

@@ -27,16 +27,15 @@ from __future__ import absolute_import
 import os
 
 import numpy as np
+from chainsaw._ext.sklearn_base import ClusterMixin
+from chainsaw.base.model import Model
+from chainsaw.clustering.indexes import index_states, sample_indexes_by_state
+from chainsaw.transform.transformer import StreamingTransformer
+from chainsaw.util.annotators import fix_docs
+from chainsaw.util.files import mkdir_p
 from six.moves import range, zip
 
-from pyemma._base.model import Model
-from pyemma._ext.sklearn.base import ClusterMixin
 from . import _regspatial as _regspatial
-from chainsaw.transform.transformer import StreamingTransformer
-
-from chainsaw.util.annotators import fix_docs
-from pyemma.util.discrete_trajectories import index_states, sample_indexes_by_state
-from chainsaw.util.files import mkdir_p
 
 
 @fix_docs
@@ -93,7 +92,7 @@ class AbstractClustering(StreamingTransformer, Model, ClusterMixin):
         -----
 
         """
-        from pyemma.util.reflection import get_default_args
+        from chainsaw.util.reflection import get_default_args
         def_args = get_default_args(self.__init__)
 
         # default value from constructor?
@@ -159,7 +158,8 @@ class AbstractClustering(StreamingTransformer, Model, ClusterMixin):
         if len(self._dtrajs) == 0:  # nothing assigned yet, doing that now
             self._dtrajs = self.assign()
 
-        if len(self._index_states) == 0: # has never been run
+        if len(self._index_states) == 0:  # has never been run
+            from .indexes import index_states
             self._index_states = index_states(self._dtrajs)
 
         return self._index_states

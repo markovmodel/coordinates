@@ -264,9 +264,9 @@ class TestClusterAssign(unittest.TestCase):
         np.testing.assert_equal(assignment_mp, assignment_sp)
 
     def test_min_rmsd(self):
-        import pyemma.datasets as data
-        d = data.get_bpti_test_data()
-        reader = coor.source(d['trajs'], top=d['top'])
+        from chainsaw.tests.util import get_bpti_test_data
+        xtcfiles, pdbfile = get_bpti_test_data()
+        reader = coor.source(xtcfiles, top=pdbfile)
 
         N_centers = 9
         centers = np.asarray((reader.ra_itraj_jagged[0, [0, 1, 7]],
