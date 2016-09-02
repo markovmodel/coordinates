@@ -57,11 +57,6 @@ class NumPyFileReader(DataSource):
         if not isinstance(filenames, (list, tuple)):
             filenames = [filenames]
 
-        for f in filenames:
-            if not f.endswith('.npy'):
-                raise ValueError('given file "%s" is not supported by this'
-                                 ' reader, since it does not end with .npy' % f)
-
         self.mmap_mode = mmap_mode
         self.filenames = filenames
 
@@ -96,12 +91,8 @@ class NumPyFileReader(DataSource):
         filename = self._filenames[itraj]
         #self._logger.debug("opening file %s" % filename)
 
-        if filename.endswith('.npy'):
-            x = np.load(filename, mmap_mode=self.mmap_mode)
-            arr = self._reshape(x)
-        else:
-            raise ValueError("given file '%s' is not a NumPy array. Make sure"
-                             " it has a .npy extension" % filename)
+        x = np.load(filename, mmap_mode=self.mmap_mode)
+        arr = self._reshape(x)
         return arr
 
     def _get_traj_info(self, filename):
