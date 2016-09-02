@@ -207,7 +207,7 @@ metadata = dict(
     keywords=['data'],
     packages=find_packages(),
     # install default emma.cfg into package.
-    #package_data=dict(pyemma=['pyemma.cfg']),
+    #package_data=dict(pyemma=['chainsaw.cfg']),
     cmdclass=get_cmdclass(),
     # runtime dependencies
     install_requires=['numpy>=1.7.0',

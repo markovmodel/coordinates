@@ -104,6 +104,7 @@ Find here a documentation how to extract features from them.
 
 
 """
+from .util import config
 from .api import *
 
 from ._version import get_versions
