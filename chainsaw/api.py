@@ -26,7 +26,7 @@ import logging as _logging
 
 from chainsaw.util import types as _types
 # lift this function to the api
-from .util.stat import histogram
+from chainsaw.util.stat import histogram
 
 from six import string_types as _string_types
 from six.moves import range, zip
