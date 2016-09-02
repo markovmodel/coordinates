@@ -85,8 +85,8 @@ def create_file_reader(input_files, topology, featurizer, chunk_size=1000, **kw)
             if all_exist:
                 from chainsaw.data.util.fileformat_registry import FileFormatRegistry
                 # check all registered suffixes.
-                if suffix in FileFormatRegistry.readers.keys():
-                    clazz = FileFormatRegistry.readers[suffix]
+                if suffix in FileFormatRegistry.supported_extensions():
+                    clazz = FileFormatRegistry[suffix]
                     if FileFormatRegistry.is_md_format(suffix):
                         # check: do we either have a featurizer or a topology file name? If not: raise ValueError.
                         # create a MD reader with file names and topology
@@ -95,11 +95,12 @@ def create_file_reader(input_files, topology, featurizer, chunk_size=1000, **kw)
                                              "featurizer or a topology file.")
                         reader = clazz(input_list, featurizer=featurizer, topologyfile=topology, chunksize=chunk_size)
                     else:
-                        reader = clazz(input_list, chunksize=chunk_size)
+                        reader = clazz(input_list, chunksize=chunk_size, **kw)
                 else:
-                    # otherwise we assume that given files are ascii tabulated data
-                    from chainsaw.data.py_csv_reader import PyCSVReader
-                    reader = PyCSVReader(input_list, chunksize=chunk_size, **kw)
+                    import pprint
+                    raise ValueError("Extension {ext} not supported. Supported extensions are {exts}"
+                                     .format(ext=suffix, exts=pprint.pformat(
+                                        FileFormatRegistry.supported_extensions())))
         else:
             raise ValueError("Not all elements in the input list were of the type %s!" % suffix)
     else:

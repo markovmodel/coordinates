@@ -1,7 +1,11 @@
 
+class FileFormatUnsupported(Exception):
+    """ No available reader is able to handle the given extension."""
+
+
 class FileFormatRegistry(object):
     """ Registry for trajectory file objects. """
-    readers = {}
+    _readers = {}
 
     @classmethod
     def register(cls, *args):
@@ -10,7 +14,7 @@ class FileFormatRegistry(object):
             if hasattr(f, 'SUPPORTED_EXTENSIONS') and f.SUPPORTED_EXTENSIONS is not ():
                 raise RuntimeError("please call register() only once per class!")
             extensions = tuple(args)
-            cls.readers.update({e: f for e in extensions})
+            cls._readers.update({e: f for e in extensions})
             f.SUPPORTED_EXTENSIONS = extensions
             return f
         return decorator
@@ -19,6 +23,15 @@ class FileFormatRegistry(object):
     def is_md_format(extension):
         from chainsaw.data import FeatureReader
         return extension in FeatureReader.SUPPORTED_EXTENSIONS
+
+    def supported_extensions(self):
+        return self._readers.keys()
+
+    def __getitem__(self, item):
+        try:
+            return self._readers[item]
+        except KeyError:
+            raise FileFormatUnsupported("Extension {ext} is not supported by any reader.".format(ext=item))
 
 # singleton pattern
 FileFormatRegistry = FileFormatRegistry()
