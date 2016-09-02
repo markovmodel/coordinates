@@ -1,6 +1,9 @@
 from __future__ import absolute_import
+
 import unittest
+
 import numpy as np
+
 from .. import moments
 
 __author__ = 'noe'
@@ -132,8 +135,8 @@ class TestMoments(unittest.TestCase):
 
     def _test_moments_XY(self, X, Y, symmetrize=False, remove_mean=False, sparse_mode='auto', weights=None):
         w1, s_X, s_Y, C_XX, C_XY = moments.moments_XXXY(X, Y, remove_mean=remove_mean, modify_data=False,
-                                                       symmetrize=symmetrize, sparse_mode=sparse_mode,
-                                                       weights=weights)
+                                                        symmetrize=symmetrize, sparse_mode=sparse_mode,
+                                                        weights=weights)
         # reference
         T = X.shape[0]
         if weights is not None:

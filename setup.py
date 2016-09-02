@@ -129,10 +129,10 @@ def extensions():
                   extra_compile_args=['-std=c99'])
 
     covar_module = \
-        Extension(__pkg_name+'.ext.variational_estimators.covar_c.covartools',
-                  sources=[os.path.join(__pkg_name, 'ext/variational_estimators/covar_c/covartools.pyx'),
-                           os.path.join(__pkg_name, 'ext/variational_estimators/covar_c/_covartools.c')],
-                  include_dirs=[os.path.join(__pkg_name, 'ext/variational_estimators/covar_c/'),
+        Extension(__pkg_name+'._ext.variational_estimators.covar_c.covartools',
+                  sources=[os.path.join(__pkg_name, '_ext/variational_estimators/covar_c/covartools.pyx'),
+                           os.path.join(__pkg_name, '_ext/variational_estimators/covar_c/_covartools.c')],
+                  include_dirs=[os.path.join(__pkg_name, '_ext/variational_estimators/covar_c/'),
                                 np_inc,
                                 ],
                   extra_compile_args=['-std=c99', '-O3'])

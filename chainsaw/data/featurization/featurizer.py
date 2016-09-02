@@ -19,7 +19,7 @@ from __future__ import absolute_import
 
 import warnings
 
-from chainsaw._base.logging import Loggable
+from chainsaw.base.loggable import Loggable
 from chainsaw.util.types import is_string
 import mdtraj
 import six

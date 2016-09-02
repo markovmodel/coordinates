@@ -196,7 +196,7 @@ static int myextension_clear(PyObject *m) {
 
 static struct PyModuleDef moduledef = {
         PyModuleDef_HEAD_INIT,
-        "regspatial",
+        "_regspatial",
         NULL,
         sizeof(struct module_state),
         regspatialMethods,
@@ -214,20 +214,20 @@ PyInit__regspatial(void)
 #else // py2
 #define INITERROR return
 
-PyMODINIT_FUNC initregspatial(void)
+PyMODINIT_FUNC init_regspatial(void)
 #endif
 {
 #if PY_MAJOR_VERSION >= 3
     PyObject *module = PyModule_Create(&moduledef);
 #else
-    PyObject *module = Py_InitModule3("regspatial", regspatialMethods, MOD_USAGE);
+    PyObject *module = Py_InitModule3("_regspatial", regspatialMethods, MOD_USAGE);
 #endif
     struct module_state *st = GETSTATE(module);
 
     if (module == NULL)
         INITERROR;
 
-    st->error = PyErr_NewException("regspatial.Error", NULL, NULL);
+    st->error = PyErr_NewException("_regspatial.Error", NULL, NULL);
     if (st->error == NULL) {
         Py_DECREF(module);
         INITERROR;

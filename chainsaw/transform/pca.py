@@ -21,16 +21,14 @@ from __future__ import absolute_import
 
 import math
 
-from pyemma._base.model import Model
-from progress_reporter import ProgressReporter
-
-from chainsaw.ext.variational_estimators import running_covar
+import numpy as np
+from chainsaw._ext.variational_estimators import running_covar
 from chainsaw.transform.transformer import StreamingTransformer
 from chainsaw.util.annotators import fix_docs
-from pyemma.util.reflection import get_default_args
-
-import numpy as np
 from decorator import decorator
+from progress_reporter import ProgressReporter
+from pyemma._base.model import Model
+from pyemma.util.reflection import get_default_args
 
 
 __all__ = ['PCA']
