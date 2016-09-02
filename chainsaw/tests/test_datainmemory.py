@@ -31,7 +31,7 @@ import numpy as np
 from chainsaw.data.data_in_memory import DataInMemory
 from logging import getLogger
 
-logger = getLogger('pyemma.'+'TestDataInMemory')
+logger = getLogger('chainsaw.'+'TestDataInMemory')
 
 
 class TestDataInMemory(unittest.TestCase):

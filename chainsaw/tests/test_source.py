@@ -29,7 +29,7 @@ import chainsaw.api as api
 from chainsaw.util import types
 import pkg_resources
 
-logger = getLogger('pyemma.'+'TestReaderUtils')
+logger = getLogger('chainsaw.'+'TestReaderUtils')
 
 
 class TestSource(unittest.TestCase):

@@ -39,7 +39,7 @@ import numpy as np
 
 from chainsaw.tests.util import create_traj
 
-log = getLogger('pyemma.' + 'TestFeatureReader')
+log = getLogger('chainsaw.' + 'TestFeatureReader')
 
 
 class TestFeatureReader(unittest.TestCase):

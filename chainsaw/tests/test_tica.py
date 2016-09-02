@@ -39,7 +39,7 @@ from logging import getLogger
 from chainsaw.util import types
 from six.moves import range
 
-logger = getLogger('pyemma.'+'TestTICA')
+logger = getLogger('chainsaw.'+'TestTICA')
 
 
 def mycorrcoef(X, Y, lag):

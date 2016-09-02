@@ -26,7 +26,7 @@ from chainsaw._ext.variational_estimators import running_covar
 from chainsaw.transform.transformer import StreamingTransformer
 from chainsaw.util.annotators import fix_docs
 from decorator import decorator
-from progress_reporter import ProgressReporter
+from chainsaw.base.reporter import ProgressReporter
 from chainsaw.base.model import Model
 from chainsaw.util.reflection import get_default_args
 

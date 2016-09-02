@@ -3,10 +3,10 @@ from collections import defaultdict
 
 import h5py
 import numpy as np
-from chainsaw._base.logging import Loggable
+from chainsaw.base.loggable import Loggable
 from chainsaw.util.annotators import fix_docs
 from chainsaw.util.units import bytes_to_string
-from progress_reporter import ProgressReporter
+from chainsaw.base.reporter import ProgressReporter
 from chainsaw import config
 
 from ._base.datasource import DataSource

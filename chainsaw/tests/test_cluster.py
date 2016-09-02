@@ -31,7 +31,7 @@ from chainsaw.util import types
 from six.moves import range
 
 
-logger = getLogger('pyemma.'+'TestReaderUtils')
+logger = getLogger('chainsaw.'+'TestReaderUtils')
 
 
 class TestCluster(unittest.TestCase):

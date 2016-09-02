@@ -34,7 +34,7 @@ from chainsaw.util import types
 from six.moves import range
 
 
-logger = getLogger('pyemma.'+'TestPCA')
+logger = getLogger('chainsaw.'+'TestPCA')
 
 
 class TestPCAExtensive(unittest.TestCase):

@@ -14,27 +14,8 @@ requirements:
     - python
     - setuptools
     - cython >=0.20
-
-    # TODO: remove this
-    - pyemma
-
     - mock
-    - funcsigs
-    - nose
-    - numpy x.x 
-    - h5py
-    - six
-    - psutil >=3.1.1
-    - decorator >=4.0.0
-    - progress_reporter
-
-  run:
-    - python
-    - setuptools
-    # TODO: remove this
-    - pyemma
-
-    - mock
+    - mdtraj # TODO: make it optional?
     - funcsigs
     - numpy x.x
     - h5py
@@ -42,6 +23,21 @@ requirements:
     - psutil >=3.1.1
     - decorator >=4.0.0
     - progress_reporter
+    - pyyaml
+
+  run:
+    - python
+    - setuptools
+    - mock
+    - mdtraj # TODO: make it optional?
+    - funcsigs
+    - numpy x.x
+    - h5py
+    - six
+    - psutil >=3.1.1
+    - decorator >=4.0.0
+    - progress_reporter
+    - pyyaml
 
 test:
   requires:

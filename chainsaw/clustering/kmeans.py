@@ -28,7 +28,7 @@ import psutil
 import random
 import tempfile
 
-from progress_reporter import ProgressReporter
+from chainsaw.base.reporter import ProgressReporter
 from .interface import AbstractClustering
 from chainsaw.util.annotators import fix_docs
 from chainsaw.util.units import bytes_to_string

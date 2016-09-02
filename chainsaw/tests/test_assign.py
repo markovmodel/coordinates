@@ -28,7 +28,7 @@ from chainsaw.util.files import TemporaryDirectory
 from six.moves import range
 
 
-logger = getLogger('pyemma.'+'TestCluster')
+logger = getLogger('chainsaw.'+'TestCluster')
 
 
 class TestClusterAssign(unittest.TestCase):

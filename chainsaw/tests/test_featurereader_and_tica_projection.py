@@ -41,7 +41,7 @@ from six.moves import range
 import numpy as np
 
 
-log = getLogger('pyemma.'+'TestFeatureReaderAndTICAProjection')
+log = getLogger('chainsaw.'+'TestFeatureReaderAndTICAProjection')
 
 
 def random_invertible(n, eps=0.01):

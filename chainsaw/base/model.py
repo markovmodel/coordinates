@@ -25,11 +25,11 @@ __author__ = 'noe'
 
 
 class Model(object):
-    """ Base class for pyEMMA models
+    """ Base class for Chainsaws models
 
     This class is inspired by sklearn's BaseEstimator class. However, we define parameter names not by the
     current class' __init__ but have to announce them. This allows us to also remember the parameters of model
-    superclasses. This class can be mixed with pyEMMA and sklearn Estimators.
+    superclasses. This class can be mixed with Chainsaw and sklearn Estimators.
 
     """
 
@@ -42,7 +42,7 @@ class Model(object):
             # to represent
             args, varargs, kw, default = getargspec_no_self(set_model_param_method)
             if varargs is not None:
-                raise RuntimeError("pyEMMA models should always specify their parameters in the signature"
+                raise RuntimeError("Models should always specify their parameters in the signature"
                                    " of their set_model_params (no varargs). %s doesn't follow this convention."
                                    % (self, ))
             # Remove 'self'

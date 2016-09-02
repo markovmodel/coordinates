@@ -20,7 +20,7 @@ import six
 import numpy as np
 
 from chainsaw.base.loggable import Loggable
-from progress_reporter import ProgressReporter
+from chainsaw.base.reporter import ProgressReporter
 
 
 class Iterable(six.with_metaclass(ABCMeta, ProgressReporter, Loggable)):
@@ -257,8 +257,8 @@ class Iterable(six.with_metaclass(ABCMeta, ProgressReporter, Loggable)):
         -------
         Assume you want to save features calculated by some FeatureReader to ASCII:
         
-        >>> import numpy as np, pyemma
-        >>> from pyemma.util.files import TemporaryDirectory
+        >>> import numpy as np, chainsaw
+        >>> from chainsaw.util.files import TemporaryDirectory
         >>> import os
         >>> data = [np.random.random((10,3))] * 3
         >>> reader = chainsaw.source(data)
@@ -297,8 +297,6 @@ class Iterable(six.with_metaclass(ABCMeta, ProgressReporter, Loggable)):
                 elif e.errno == errno.ENOENT:
                     continue
                 raise
-            else:
-                continue
         f = None
         with self.iterator(stride, chunk=chunksize, return_trajindex=False) as it:
             self._progress_register(it._n_chunks, "saving to csv")

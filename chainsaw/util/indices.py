@@ -33,12 +33,12 @@ def combinations(seq, k):
     >>> from itertools import combinations as iter_comb
     >>> x = np.arange(3)
     >>> c1 = combinations(x, 2)
-    >>> print(c1)
+    >>> print(c1) # doctest: +NORMALIZE_WHITESPACE
        [[0 1]
        [0 2]
        [1 2]]
     >>> c2 = np.array(tuple(iter_comb(x, 2)))
-    >>> print(c2)
+    >>> print(c2) # doctest: +NORMALIZE_WHITESPACE
        [[0 1]
        [0 2]
        [1 2]]

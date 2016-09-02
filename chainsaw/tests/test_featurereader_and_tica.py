@@ -35,7 +35,7 @@ from chainsaw.data.feature_reader import FeatureReader
 from logging import getLogger
 from six.moves import range
 
-log = getLogger('pyemma.'+'TestFeatureReaderAndTICA')
+log = getLogger('chainsaw.'+'TestFeatureReaderAndTICA')
 
 
 class TestFeatureReaderAndTICA(unittest.TestCase):

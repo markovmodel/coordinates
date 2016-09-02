@@ -38,7 +38,7 @@ class LoggingConfigurationError(RuntimeError):
 
 def setup_logging(config, D=None):
     """ set up the logging system with the configured (in chainsaw.cfg) logging config (logging.yml)
-    @param config: instance of pyemma.config module (wrapper)
+    @param config: instance of chainsaw.config module (wrapper)
     """
     if not D:
         import yaml
@@ -74,8 +74,6 @@ def setup_logging(config, D=None):
                                             ' setting logging_conf=DEFAULT in chainsaw.cfg')
     assert D
 
-    # this has not been set in PyEMMA version prior 2.0.2+
-    D.setdefault('version', 1)
     # if the user has not explicitly disabled other loggers, we (contrary to Pythons
     # default value) do not want to override them.
     D.setdefault('disable_existing_loggers', False)
@@ -87,7 +85,7 @@ def setup_logging(config, D=None):
         # issue with file handler?
         if 'files' in str(ve) and 'rotating_files' in D['handlers']:
             print("cfg dir", config.cfg_dir)
-            new_file = os.path.join(config.cfg_dir, 'pyemma.log')
+            new_file = os.path.join(config.cfg_dir, 'chainsaw.log')
             warnings.warn("set logfile to %s, because there was"
                           " an error writing to the desired one" % new_file)
             D['handlers']['rotating_files']['filename'] = new_file
@@ -95,8 +93,8 @@ def setup_logging(config, D=None):
             raise
         dictConfig(D)
 
-    # get log file name of pyemmas root logger
-    logger = logging.getLogger('pyemma')
+    # get log file name of chainsaw root logger
+    logger = logging.getLogger('chainsaw')
     log_files = [getattr(h, 'baseFilename', None) for h in logger.handlers]
 
     import atexit
