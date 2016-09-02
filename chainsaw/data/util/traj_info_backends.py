@@ -76,6 +76,9 @@ class DictDB(AbstractDB):
     def update(self, value):
         self._db[value.hash_value] = value
 
+    def clear(self):
+        self._db.clear()
+
     @property
     def db_version(self):
         return self._db['version']

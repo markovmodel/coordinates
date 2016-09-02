@@ -110,8 +110,10 @@ class TrajInfo(object):
                 )
 
     def __str__(self):
-        return "[TrajInfo hash={hash}, len={len}, dim={dim}, path={path}". \
-            format(hash=self.hash_value, len=self.length, dim=self.ndim, path=self.abs_path)
+        return "[TrajInfo hash={hash}, len={len}, dim={dim}, path={path}, version={version}]". \
+            format(hash=self.hash_value, len=self.length, dim=self.ndim, path=self.abs_path, version=self.version)
+
+    __repr__ = __str__
 
     def __hash__(self):
         return hash(self.hash_value)
@@ -185,7 +187,7 @@ class TrajectoryInfoCache(object):
     def __getitem__(self, filename_reader_tuple):
         filename, reader = filename_reader_tuple
         abs_path = os.path.abspath(filename)
-        key = self._get_file_hash_v2(filename)
+        key = self.hash_file(filename)
         try:
             info = self._database.get(key)
             if not isinstance(info, TrajInfo):
@@ -231,9 +233,6 @@ class TrajectoryInfoCache(object):
         # now read the first megabyte and hash it
         with open(filename, mode='rb') as fh:
             data = fh.read(1024)
-
-        if sys.version_info > (3,):
-            long = int
 
         hasher = hashlib.md5()
         hasher.update(os.path.basename(filename).encode('utf-8'))
