@@ -25,7 +25,7 @@ from .iterable import Iterable
 from .random_accessible import TrajectoryRandomAccessible
 
 # TODO: remove this ref
-from pyemma.util import config
+from chainsaw import config
 
 from six import string_types
 import os

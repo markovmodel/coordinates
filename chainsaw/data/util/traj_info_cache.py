@@ -31,7 +31,7 @@ from logging import getLogger
 
 import numpy as np
 
-from pyemma.util import config
+from chainsaw import config
 
 logger = getLogger(__name__)
 

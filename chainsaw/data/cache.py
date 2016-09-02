@@ -7,7 +7,7 @@ from chainsaw._base.logging import Loggable
 from chainsaw.util.annotators import fix_docs
 from chainsaw.util.units import bytes_to_string
 from progress_reporter import ProgressReporter
-from pyemma.util import config
+from chainsaw import config
 
 from ._base.datasource import DataSource
 from .data_in_memory import DataInMemoryIterator

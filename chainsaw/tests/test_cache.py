@@ -4,7 +4,7 @@ import unittest
 from glob import glob
 
 import numpy as np
-from pyemma.util import config
+from chainsaw import config
 
 from ..data.cache import Cache
 import chainsaw
