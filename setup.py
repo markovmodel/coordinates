@@ -206,9 +206,8 @@ metadata = dict(
     classifiers=[c for c in CLASSIFIERS.split('\n') if c],
     keywords=['data'],
     packages=find_packages(),
-    # install default emma.cfg into package.
-    #package_data=dict(pyemma=['chainsaw.cfg']),
     cmdclass=get_cmdclass(),
+    package_data={'chainsaw': ['_resources/*']},
     # runtime dependencies
     install_requires=['numpy>=1.7.0',
                       'scipy>=0.11',
@@ -232,7 +231,6 @@ else:
     # setuptools>=2.2 can handle setup_requires
     metadata['setup_requires'] = ['numpy>=1.7.0',
                                   'mdtraj>=1.7.0',
-                                  'nose',
                                   ]
     if sys.version_info.major == 2:
         # kick it since causes headages with conda recently...
