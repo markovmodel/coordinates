@@ -26,7 +26,7 @@ import numpy as np
 from chainsaw.data import MDFeaturizer
 from logging import getLogger
 import chainsaw.api as api
-import pyemma.util.types as types
+from chainsaw.util import types
 import pkg_resources
 
 logger = getLogger('pyemma.'+'TestReaderUtils')

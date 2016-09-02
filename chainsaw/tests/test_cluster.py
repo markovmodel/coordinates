@@ -27,7 +27,7 @@ import numpy as np
 
 from logging import getLogger
 import chainsaw as coor
-import pyemma.util.types as types
+from chainsaw.util import types
 from six.moves import range
 
 

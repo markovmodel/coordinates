@@ -32,7 +32,7 @@ from chainsaw.data.data_in_memory import DataInMemory
 from chainsaw.api import cluster_regspace
 
 import numpy as np
-import pyemma.util.types as types
+from chainsaw.util import types
 
 
 class RandomDataSource(DataInMemory):

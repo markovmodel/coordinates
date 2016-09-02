@@ -30,7 +30,7 @@ import numpy as np
 
 from chainsaw import pca
 from logging import getLogger
-import pyemma.util.types as types
+from chainsaw.util import types
 from six.moves import range
 
 

@@ -36,7 +36,7 @@ from chainsaw import source, tica
 from chainsaw.transform import TICA as _internal_tica
 from chainsaw.util.contexts import numpy_random_seed
 from logging import getLogger
-import pyemma.util.types as types
+from chainsaw.util import types
 from six.moves import range
 
 logger = getLogger('pyemma.'+'TestTICA')
