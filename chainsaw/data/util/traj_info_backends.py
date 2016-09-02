@@ -35,7 +35,7 @@ from chainsaw.data.util.traj_info_cache import (UnknownDBFormatException,
                                                           TrajInfo,
                                                           TrajectoryInfoCache,
                                                           logger)
-from pyemma.util import config
+from chainsaw import config
 
 
 class AbstractDB(object):

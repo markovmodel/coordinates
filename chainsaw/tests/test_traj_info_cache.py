@@ -39,7 +39,7 @@ from chainsaw.data.util.traj_info_cache import TrajectoryInfoCache
 from chainsaw.tests.util import create_traj
 
 from pyemma.datasets import get_bpti_test_data
-from pyemma.util import config
+from chainsaw import config
 
 from chainsaw.util.contexts import settings
 from chainsaw.util.files import TemporaryDirectory
