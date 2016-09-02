@@ -135,7 +135,7 @@ class TestNumPyFileReader(unittest.TestCase):
 
         self.assertEqual(reader.n_frames_total(), self.d.shape[0])
 
-    #@unittest.skip("npz currently unsupported")
+    @unittest.skip("npz currently unsupported")
     def test_npz(self):
         reader = NumPyFileReader(self.npz)
 

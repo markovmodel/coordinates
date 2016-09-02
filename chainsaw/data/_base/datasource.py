@@ -38,6 +38,9 @@ class DataSource(Iterable, TrajectoryRandomAccessible):
     of trajectories is generally unknown for Iterable.
     """
 
+    """File extensions this DataSource can read."""
+    SUPPORTED_EXTENSIONS = ()
+
     def __init__(self, chunksize=1000):
         super(DataSource, self).__init__(chunksize=chunksize)
 
@@ -97,11 +100,16 @@ class DataSource(Iterable, TrajectoryRandomAccessible):
                     self.logger.exception('Error during access of file "%s"' % f)
                     raise ValueError('could not read file "%s"' % f)
 
-                if not os.path.isfile(f): # can be true for symlinks to directories
+                if not os.path.isfile(f):  # can be true for symlinks to directories
                     raise ValueError('"%s" is not a valid file')
 
                 if stat.st_size == 0:
                     raise ValueError('file "%s" is empty' % f)
+
+                n, ext = os.path.splitext(f)
+                if ext not in self.SUPPORTED_EXTENSIONS:
+                    raise ValueError("{ext} not supported by reader {name}. Supported extensions are {exts}"
+                                     .format(ext=ext, name=self.__class__.__name__, exts=self.SUPPORTED_EXTENSIONS))
 
             # number of trajectories/data sets
             self._filenames = filename_list

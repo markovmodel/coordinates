@@ -41,13 +41,10 @@ def create_file_reader(input_files, topology, featurizer, chunk_size=1000, **kw)
         The chunk size with which the corresponding reader gets initialized.
     :return: Returns the reader.
     """
-    from chainsaw.data.py_csv_reader import PyCSVReader
-    from chainsaw.data import FeatureReader
-    from chainsaw.data.fragmented_trajectory_reader import FragmentedTrajectoryReader
-
     # fragmented trajectories
     if (isinstance(input_files, (list, tuple)) and len(input_files) > 0 and
             any(isinstance(item, (list, tuple)) for item in input_files)):
+        from chainsaw.data.fragmented_trajectory_reader import FragmentedTrajectoryReader
         return FragmentedTrajectoryReader(input_files, topology, chunk_size, featurizer)
 
     # normal trajectories
@@ -91,7 +88,6 @@ def create_file_reader(input_files, topology, featurizer, chunk_size=1000, **kw)
                 if suffix in FileFormatRegistry.readers.keys():
                     clazz = FileFormatRegistry.readers[suffix]
                     if FileFormatRegistry.is_md_format(suffix):
-                        assert isinstance(clazz, FeatureReader)
                         # check: do we either have a featurizer or a topology file name? If not: raise ValueError.
                         # create a MD reader with file names and topology
                         if not featurizer and not topology:
@@ -99,9 +95,10 @@ def create_file_reader(input_files, topology, featurizer, chunk_size=1000, **kw)
                                              "featurizer or a topology file.")
                         reader = clazz(input_list, featurizer=featurizer, topologyfile=topology, chunksize=chunk_size)
                     else:
-                        reader = clazz(input_list, chunk_size=chunk_size)
+                        reader = clazz(input_list, chunksize=chunk_size)
                 else:
                     # otherwise we assume that given files are ascii tabulated data
+                    from chainsaw.data.py_csv_reader import PyCSVReader
                     reader = PyCSVReader(input_list, chunksize=chunk_size, **kw)
         else:
             raise ValueError("Not all elements in the input list were of the type %s!" % suffix)
