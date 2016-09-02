@@ -7,6 +7,8 @@ class FileFormatRegistry(object):
     def register(cls, *args):
         """ register the given class as Reader class for given extension(s). """
         def decorator(f):
+            if hasattr(f, 'SUPPORTED_EXTENSIONS') and f.SUPPORTED_EXTENSIONS is not ():
+                raise RuntimeError("please call register() only once per class!")
             extensions = tuple(args)
             cls.readers.update({e: f for e in extensions})
             f.SUPPORTED_EXTENSIONS = extensions
@@ -20,9 +22,3 @@ class FileFormatRegistry(object):
 
 # singleton pattern
 FileFormatRegistry = FileFormatRegistry()
-
-
-# TODO: should we use this or not? explicit is better than implicit, so only add the readers, we've tested?
-# # if we have mdtraj loaded, use their file classes too.
-
-#     FileFormatRegistry.readers.update(_reg.fileobjects)
