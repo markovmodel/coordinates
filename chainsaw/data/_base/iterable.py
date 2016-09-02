@@ -19,7 +19,7 @@ from abc import ABCMeta, abstractmethod
 import six
 import numpy as np
 
-from chainsaw._base.logging import Loggable
+from chainsaw.base.loggable import Loggable
 from progress_reporter import ProgressReporter
 
 
