@@ -150,15 +150,15 @@ class TestCoordinatesIterator(unittest.TestCase):
             reader = source(fns)
             assert reader.filenames == fns
             tica_obj = tica(reader, lag=1, dim=2)
-            tica_obj.write_to_csv(extension=".exotic", chunksize=3)
-            res = sorted([os.path.abspath(x) for x in glob(td + os.path.sep + '*.exotic')])
+            tica_obj.write_to_csv(extension=".txt", chunksize=3)
+            res = sorted([os.path.abspath(x) for x in glob(td + os.path.sep + '*.txt')])
             self.assertEqual(len(res), len(fns))
-            desired_fns = sorted([s.replace('.npy', '.exotic') for s in fns])
+            desired_fns = sorted([s.replace('.npy', '.txt') for s in fns])
             self.assertEqual(res, desired_fns)
 
             # compare written results
             expected = tica_obj.get_output()
-            actual = source(list(s.replace('.npy', '.exotic') for s in fns)).get_output()
+            actual = source(list(s.replace('.npy', '.txt') for s in fns)).get_output()
             assert len(actual) == len(fns)
             for a, e in zip(actual, expected):
                 np.testing.assert_allclose(a, e)
