@@ -189,7 +189,8 @@ def _dialect_to_str(dialect):
     return str(s.read())
 
 
-@FileFormatRegistry.register('.txt', '.dat', '.csv')
+# empty string intended, it is the only reader which should allow this.
+@FileFormatRegistry.register('.txt', '.dat', '.csv', '')
 class PyCSVReader(DataSource):
     r""" Reader for tabulated ASCII data
 
