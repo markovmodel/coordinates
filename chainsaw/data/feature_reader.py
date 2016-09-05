@@ -36,11 +36,26 @@ __all__ = ['FeatureReader']
 
 @fix_docs
 @FileFormatRegistry.register(
-    # NOTE: explicitly removed PDB here, since we only use it to obtain topology info, not traj data.
-    '.h5', '.nc', '.arc', '.crd', '.lammpstrj', '.binpos',
-    '.xtc', '.netcdf', '.mdcrd', '.rst7', '.ncdf', '.gro',
-    '.inpcrd', '.xyz.gz', '.pdb.gz', '.ncrst', '.trr', '.dtr',
-    '.lh5', '.xyz', '.hdf5', '.dcd', '.restrt',
+ # NOTE: explicitly removed PDB here, since we only use it to obtain topology info, not traj data.
+ '.arc',
+ '.binpos',
+ '.crd',
+ '.dcd',
+ '.dtr',
+ '.gro',
+ '.h5', '.hdf5',
+ '.inpcrd',
+ '.lammpstrj',
+ '.lh5',
+ '.mdcrd',
+ '.nc',
+ '.ncdf',
+ '.ncrst',
+ '.netcdf',
+ '.restrt',
+ '.rst7',
+ '.trr', '.xtc',
+ '.xyz', '.xyz.gz'
 )
 class FeatureReader(DataSource):
     """

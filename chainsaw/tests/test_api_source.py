@@ -50,7 +50,7 @@ class TestApiSourceFileReader(unittest.TestCase):
         cls.dat = tempfile.mktemp(suffix='.dat', dir=cls.dir)
         cls.csv = tempfile.mktemp(suffix='.csv', dir=cls.dir)
 
-        cls.bs = tempfile.mktemp(suffix=".bs", dir=cls.dir)
+        cls.bs = tempfile.mktemp(suffix=".txt", dir=cls.dir)
 
         with open(cls.bs, "w") as fh:
             fh.write("meaningless\n")
@@ -108,7 +108,10 @@ class TestApiSourceFileReader(unittest.TestCase):
 
     def test_bullshit_csv(self):
         # this file is not parseable as tabulated float file
-        self.assertRaises(ValueError, api.source, self.bs)
+        with self.assertRaises(ValueError) as exc:
+            api.source(self.bs)
+
+        self.assertIn("could not parse", exc.exception.args[0])
 
 import pkg_resources
 class TestApiSourceFeatureReader(unittest.TestCase):

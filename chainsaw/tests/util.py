@@ -52,12 +52,15 @@ def _monkey_patch_testing_apply_setting():
 
     doctest.DocTestFinder.__init__ = _patched_init
 
+
 def get_bpti_test_data():
     import pkg_resources
     path = pkg_resources.resource_filename(__name__, 'data') + os.path.sep
     from glob import glob
     xtcfiles = glob(path + '/bpti_0*.xtc')
     pdbfile = os.path.join(path, 'bpti_ca.pdb')
+    assert xtcfiles, xtcfiles
+    assert pdbfile, pdbfile
 
     return xtcfiles, pdbfile
 
