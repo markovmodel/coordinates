@@ -20,7 +20,6 @@ import itertools
 import numpy as np
 
 from chainsaw.data._base.datasource import DataSource, DataSourceIterator
-from chainsaw.data.util.reader_utils import preallocate_empty_trajectory
 from chainsaw.util.annotators import fix_docs
 
 
@@ -58,10 +57,10 @@ class _FragmentedTrajectoryIterator(object):
         return self
 
     def _allocate_chunk(self, expected_length, ndim):
-        if (hasattr(self._reader_it._data_source, '_return_traj_obj') and
-                self._reader_it._data_source._return_traj_obj):
+        if all(hasattr(r, 'featurizer') and r._return_traj_obj for r in self._readers):
+            from pyemma.coordinates.data.util.reader_utils import preallocate_empty_trajectory
             X = preallocate_empty_trajectory(n_frames=expected_length,
-                                             top=self._reader_it._data_source.featurizer.topology)
+                                             top=self._readers[0].featurizer.topology)
         else:
             X = np.empty((expected_length, ndim), dtype=self._frag_reader.output_type())
 
@@ -159,16 +158,6 @@ class _FragmentedTrajectoryIterator(object):
 
     def next(self):
         return self.__next__()
-
-    def _allocate_chunk(self, expected_length, ndim):
-        from chainsaw.data.feature_reader import FeatureReader
-        if all(isinstance(r, FeatureReader) and r._return_traj_obj for r in self._readers):
-            X = preallocate_empty_trajectory(n_frames=expected_length,
-                                             top=self._readers[0].featurizer.topology)
-        else:
-            X = np.empty((expected_length, ndim), dtype=self._frag_reader.output_type())
-
-        return X
 
     def _read_full(self, skip):
         if self._ra_indices is not None:
