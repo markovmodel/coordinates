@@ -31,24 +31,23 @@ import unittest
 import mock
 import chainsaw
 from chainsaw import api
+from chainsaw.data.feature_reader import FeatureReader
 from chainsaw.data.numpy_filereader import NumPyFileReader
 from chainsaw.data.py_csv_reader import PyCSVReader
 from chainsaw.data.util.traj_info_backends import SqliteDB
 from chainsaw.data.util.traj_info_cache import TrajectoryInfoCache
+from chainsaw.tests.util import create_traj, get_bpti_test_data
 
 from chainsaw import config
 
 from chainsaw.util.contexts import settings
 from chainsaw.util.files import TemporaryDirectory
+import mdtraj
 import pkg_resources
 
 import numpy as np
 
-try:
-    import pyemma
-    have_feature_reader = True
-except ImportError:
-    have_feature_reader = False
+xtcfiles, pdbfile = get_bpti_test_data()
 
 
 class TestTrajectoryInfoCache(unittest.TestCase):
@@ -56,12 +55,6 @@ class TestTrajectoryInfoCache(unittest.TestCase):
     def setUpClass(cls):
         cls.old_instance = TrajectoryInfoCache.instance()
         config.use_trajectory_lengths_cache = True
-
-        if have_feature_reader:
-            from pyemma.datasets import get_bpti_test_data
-            d = get_bpti_test_data()
-            cls.xtcfiles =d['trajs']
-            cls.pdbfile = d['top']
 
     def setUp(self):
         self.work_dir = tempfile.mkdtemp("traj_cache_test")
@@ -119,21 +112,18 @@ class TestTrajectoryInfoCache(unittest.TestCase):
                 api.source(f.name)
                 assert f.name in cm.exception.message
 
-    @unittest.skipIf(not have_feature_reader, "dont have feature reader")
     def test_featurereader_xtc(self):
-        import mdtraj
         # cause cache failures
-        from pyemma.coordinates.data import FeatureReader
         with settings(use_trajectory_lengths_cache=False):
-            reader = FeatureReader(self.xtcfiles, self.pdbfile)
+            reader = FeatureReader(xtcfiles, pdbfile)
 
         results = {}
-        for f in self.xtcfiles:
+        for f in xtcfiles:
             traj_info = self.db[f, reader]
             results[f] = traj_info.ndim, traj_info.length, traj_info.offsets
 
         expected = {}
-        for f in self.xtcfiles:
+        for f in xtcfiles:
             with mdtraj.open(f) as fh:
                 length = len(fh)
                 ndim = fh.read(1)[0].shape[1]
@@ -179,14 +169,12 @@ class TestTrajectoryInfoCache(unittest.TestCase):
         finally:
             os.unlink(fn)
 
-    @unittest.skipIf(not have_feature_reader, "dont have feature reader")
     def test_fragmented_reader(self):
         top_file = pkg_resources.resource_filename(__name__, 'data/test.pdb')
         trajfiles = []
         nframes = []
         with TemporaryDirectory() as wd:
             for _ in range(3):
-                from pyemma.coordinates.tests.util import create_traj
                 f, _, l = create_traj(top_file, dir=wd)
                 trajfiles.append(f)
                 nframes.append(l)
@@ -197,17 +185,15 @@ class TestTrajectoryInfoCache(unittest.TestCase):
             np.testing.assert_equal(reader.trajectory_lengths(),
                                     [sum(nframes), nframes[0], nframes[0] + nframes[2]])
 
-    @unittest.skipIf(not have_feature_reader, "dont have feature reader")
     def test_feature_reader_xyz(self):
-        import mdtraj
-        traj = mdtraj.load(self.xtcfiles, top=self.pdbfile)
+        traj = mdtraj.load(xtcfiles, top=pdbfile)
         length = len(traj)
 
         with NamedTemporaryFile(mode='wb', suffix='.xyz', delete=False) as f:
             fn = f.name
             traj.save_xyz(fn)
             f.close()
-            reader = chainsaw.source(fn, top=self.pdbfile)
+            reader = chainsaw.source(fn, top=pdbfile)
             self.assertEqual(reader.trajectory_length(0), length)
 
     def test_data_in_mem(self):
@@ -235,7 +221,6 @@ class TestTrajectoryInfoCache(unittest.TestCase):
             assert info.ndim == 1
             assert info.offsets == []
 
-    @unittest.skipIf(not have_feature_reader, "dont have feature reader")
     def test_corrupted_db(self):
         with NamedTemporaryFile(mode='w', suffix='.dat', delete=False) as f:
             f.write("makes no sense!!!!")
@@ -249,14 +234,14 @@ class TestTrajectoryInfoCache(unittest.TestCase):
             assert "corrupted" in str(cm[-1].message)
 
         # ensure we can perform lookups on the broken db without exception.
-        r = api.source(self.xtcfiles[0], top=self.pdbfile)
-        db[self.xtcfiles[0], r]
+        r = api.source(xtcfiles[0], top=pdbfile)
+        db[xtcfiles[0], r]
 
     def test_n_entries(self):
         self.assertEqual(self.db.num_entries, 0)
         assert TrajectoryInfoCache._instance is self.db
-        chainsaw.source(self.xtcfiles, top=self.pdbfile)
-        self.assertEqual(self.db.num_entries, len(self.xtcfiles))
+        chainsaw.source(xtcfiles, top=pdbfile)
+        self.assertEqual(self.db.num_entries, len(xtcfiles))
 
     def test_max_n_entries(self):
         data = [np.random.random((10, 3)) for _ in range(20)]
@@ -294,7 +279,7 @@ class TestTrajectoryInfoCache(unittest.TestCase):
         self.db._database = SqliteDB(filename=None)
 
         # trigger caching
-        chainsaw.source(self.xtcfiles, top=self.pdbfile)
+        chainsaw.source(xtcfiles, top=pdbfile)
 
     def test_no_sqlite(self):
         # create new instance (init has to be called, install temporary import hook to raise importerror for sqlite3
@@ -321,16 +306,15 @@ class TestTrajectoryInfoCache(unittest.TestCase):
         finally:
             del sys.meta_path[0]
 
-    @unittest.skipIf(not have_feature_reader, "dont have feature reader")
     def test_in_memory_db(self):
         """ new instance, not yet saved to disk, no lru cache avail """
         old_cfg_dir = config.cfg_dir
         try:
             config._cfg_dir = ''
             db = TrajectoryInfoCache()
-            reader = chainsaw.source(self.xtcfiles, top=self.pdbfile)
+            reader = chainsaw.source(xtcfiles, top=pdbfile)
 
-            info = db[self.xtcfiles[0], reader]
+            info = db[xtcfiles[0], reader]
             self.assertIsInstance(db._database, SqliteDB)
 
             directory = db._database._database_from_key(info.hash_value)

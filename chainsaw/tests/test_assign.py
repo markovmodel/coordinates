@@ -24,7 +24,6 @@ from logging import getLogger
 import chainsaw as coor
 import chainsaw.util.types as types
 import numpy as np
-from chainsaw import source
 from chainsaw.util.files import TemporaryDirectory
 from six.moves import range
 
@@ -265,9 +264,15 @@ class TestClusterAssign(unittest.TestCase):
         np.testing.assert_equal(assignment_mp, assignment_sp)
 
     def test_min_rmsd(self):
-        reader = source(self.X)
+        from chainsaw.tests.util import get_bpti_test_data
+        xtcfiles, pdbfile = get_bpti_test_data()
+        reader = coor.source(xtcfiles, top=pdbfile)
+
         N_centers = 9
-        centers = self.X[np.random.choice(len(self.X), size=N_centers)]
+        centers = np.asarray((reader.ra_itraj_jagged[0, [0, 1, 7]],
+                              reader.ra_itraj_jagged[1, [32, 1, 23]],
+                              reader.ra_itraj_jagged[2, [17, 8, 15]])
+                             ).reshape((N_centers, -1))
         dtraj = coor.assign_to_centers(reader, centers=centers, metric='minRMSD', return_dtrajs=True)
 
         num_assigned_states = len(np.unique(np.concatenate(dtraj)))

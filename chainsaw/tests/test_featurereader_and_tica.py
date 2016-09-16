@@ -18,7 +18,7 @@
 
 
 '''
-Test Tica with a set of cosine time series.
+Test feature reader and Tica with a set of cosine time series.
 @author: Fabian Paul
 '''
 
@@ -29,15 +29,16 @@ import unittest
 import os
 import tempfile
 import numpy as np
+import mdtraj
 from chainsaw import api
-from chainsaw import source
+from chainsaw.data.feature_reader import FeatureReader
 from logging import getLogger
 from six.moves import range
 
 log = getLogger('chainsaw.'+'TestFeatureReaderAndTICA')
 
 
-class TestTICA_extensive(unittest.TestCase):
+class TestFeatureReaderAndTICA(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.dim = 9 # dimension (must be divisible by 3)
@@ -51,6 +52,12 @@ class TestTICA_extensive(unittest.TestCase):
         cls.phi = np.random.random_sample((cls.dim,))*np.pi*2.0
         mean = np.random.randn(cls.dim)
 
+        # create topology file
+        cls.temppdb = tempfile.mktemp('.pdb')
+        with open(cls.temppdb, 'w') as f:
+            for i in range(cls.dim//3):
+                print(('ATOM  %5d C    ACE A   1      28.490  31.600  33.379  0.00  1.00' % i), file=f)
+
         t = np.arange(0, N)
         t_total = 0
         cls.trajnames = []  # list of xtc file names
@@ -59,8 +66,11 @@ class TestTICA_extensive(unittest.TestCase):
             data = cls.A*np.cos((cls.w*(t+t_total))[:, np.newaxis]+cls.phi) + mean
             xyz = data.reshape((N, cls.dim//3, 3))
             # create trajectory file
-            tempfname = tempfile.mktemp('.npy')
-            np.save(file=tempfname, arr=xyz)
+            traj = mdtraj.load(cls.temppdb)
+            traj.xyz = xyz
+            traj.time = t
+            tempfname = tempfile.mktemp('.xtc')
+            traj.save(tempfname)
             cls.trajnames.append(tempfname)
             t_total += N
 
@@ -68,10 +78,11 @@ class TestTICA_extensive(unittest.TestCase):
     def tearDownClass(cls):
         for fname in cls.trajnames:
             os.unlink(fname)
-        super(TestTICA_extensive, cls).tearDownClass()
+        os.unlink(cls.temppdb)
+        super(TestFeatureReaderAndTICA, cls).tearDownClass()
 
     def test_covariances_and_eigenvalues(self):
-        reader = source(self.trajnames, chunk_size=10000)
+        reader = FeatureReader(self.trajnames, self.temppdb, chunksize=10000)
         for lag in [1, 11, 101, 1001, 2001]:  # avoid cos(w*tau)==0
             trans = api.tica(data=reader, dim=self.dim, lag=lag)
             log.info('number of trajectories reported by tica %d' % trans.number_of_trajectories())
@@ -88,7 +99,7 @@ class TestTICA_extensive(unittest.TestCase):
             self.assertTrue(np.all(trans.eigenvalues <= 1.0))
 
     def test_partial_fit(self):
-        reader = source(self.trajnames, chunk_size=10000)
+        reader = FeatureReader(self.trajnames, self.temppdb, chunksize=10000)
         output = reader.get_output()
         params = {'dim': self.dim, 'lag': 1001}
         ref = api.tica(reader, **params)
