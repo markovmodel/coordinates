@@ -25,6 +25,7 @@ requirements:
     - progress_reporter
     - pyyaml
     - nomkl
+    - msmtools # TODO: remove
 
   run:
     - python
@@ -40,6 +41,7 @@ requirements:
     - progress_reporter
     - pyyaml
     - nomkl
+    - msmtools # TODO: remove
 
 test:
   requires:
