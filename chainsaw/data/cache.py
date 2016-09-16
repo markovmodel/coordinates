@@ -70,9 +70,9 @@ class _CacheFile(Loggable, ProgressReporter):
                 del self.file_handle[item[0]]
         self.file_handle.flush()
 
-    def _create_cache_itraj(self, traj_info):
-        length = traj_info.length
-        ndim = traj_info.ndim
+    def _create_cache_itraj(self, itraj, traj_info):
+        length = self.cache.data_producer.trajectory_length(itraj) #traj_info.length
+        ndim = self.cache.data_producer.ndim # traj_info.ndim
         try:
             dataset = self.file_handle.create_dataset(name=traj_info.hash_value,
                                                       shape=(length, ndim),
@@ -139,7 +139,7 @@ class _CacheFile(Loggable, ProgressReporter):
             #self.logger.debug("MISS")
             self.misses += 1
             # 1. create table
-            table = self._create_cache_itraj(traj_info)
+            table = self._create_cache_itraj(itraj, traj_info)
 
             # 2. fill cache
             self.fill_cache(table, itraj)
@@ -220,6 +220,7 @@ class Cache(DataSource):
             descriptions.append(self._real_reader.featurizer.describe())
         else:
             # only use input dimension
+            descriptions.append(self._real_reader.__class__.__name__)
             descriptions.append((self._real_reader.ndim))
 
         # get params of estimators
@@ -241,11 +242,10 @@ class Cache(DataSource):
             dp = dp.data_producer
 
         # TODO: we maybe do not have a pipeline, but just a reader without descriptions, but we do not want to include the filenames, right?
-        if not descriptions:
-            descriptions.append(self._real_reader.__class__.__name__)
+
 
         import pprint
-        self.logger.debug("descriptions:\n{}".format(pprint.pformat(descriptions)))
+        self.logger.error("descriptions:\n{}".format(pprint.pformat(descriptions)))
 
         return descriptions
 

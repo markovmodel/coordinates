@@ -22,10 +22,10 @@ class FileFormatRegistry(object):
     @staticmethod
     def is_md_format(extension):
         try:
+            # TODO: replace with mdtraj check (eg. with pkgutil)
             from pyemma.coordinates.data import FeatureReader
             return extension in FeatureReader.SUPPORTED_EXTENSIONS
         except ImportError:
-            # TODO: this could cause problems
             return False
 
     def supported_extensions(self):
