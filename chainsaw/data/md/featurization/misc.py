@@ -14,18 +14,19 @@
 #
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-import six
 '''
 Created on 15.02.2016
 
 @author: marscher
 '''
-from chainsaw.data.featurization.util import (_catch_unhashable,
-                                                        _describe_atom,
-                                                        hash_top, _hash_numpy_array)
-import numpy as np
+import six
 import mdtraj
-from chainsaw.data.featurization._base import Feature
+import numpy as np
+
+from chainsaw.data.md.featurization.util import (_catch_unhashable,
+                                            _describe_atom,
+                                            hash_top, _hash_numpy_array)
+from chainsaw.data.md.featurization._base import Feature
 
 
 class CustomFeature(Feature):

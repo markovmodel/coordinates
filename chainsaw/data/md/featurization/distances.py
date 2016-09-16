@@ -22,10 +22,10 @@ Created on 15.02.2016
 import mdtraj
 import numpy as np
 
-from chainsaw.data.featurization.util import (_describe_atom,
-                                                        _hash_numpy_array,
-                                                        hash_top)
-from chainsaw.data.featurization._base import Feature
+from chainsaw.data.md.featurization.util import (_describe_atom,
+                                                 _hash_numpy_array,
+                                                 hash_top)
+from chainsaw.data.md.featurization._base import Feature
 
 
 class DistanceFeature(Feature):

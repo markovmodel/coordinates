@@ -70,7 +70,7 @@ class TestAPILoad(unittest.TestCase):
         bpti_mini_previous = None
         for cs in chunksizes:
             for bpti_mini in self.bpti_mini_files:
-                Y = api.load(bpti_mini, top=self.bpti_pdbfile, chunksize=cs)
+                Y = api.load(bpti_mini, top=self.bpti_pdbfile, chunk_size=cs)
                 if X is not None:
                     np.testing.assert_array_almost_equal(X, Y, err_msg='Comparing %s to %s failed for chunksize %s'
                                                                        % (bpti_mini, bpti_mini_previous, cs))

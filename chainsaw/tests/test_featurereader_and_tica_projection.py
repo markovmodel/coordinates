@@ -29,17 +29,15 @@ from __future__ import print_function
 import os
 import tempfile
 import unittest
-
-from nose.plugins.attrib import attr
-import mdtraj
-
-from chainsaw.api import tica
-from chainsaw.data.feature_reader import FeatureReader
-from chainsaw.util.contexts import numpy_random_seed
 from logging import getLogger
-from six.moves import range
-import numpy as np
 
+import mdtraj
+import numpy as np
+from chainsaw.api import tica
+from chainsaw.data.md.feature_reader import FeatureReader
+from chainsaw.util.contexts import numpy_random_seed
+from nose.plugins.attrib import attr
+from six.moves import range
 
 log = getLogger('chainsaw.'+'TestFeatureReaderAndTICAProjection')
 

@@ -27,14 +27,14 @@ import os
 import numpy as np
 
 from chainsaw.data import DataInMemory
-from chainsaw.data import MDFeaturizer
+from chainsaw.data.md import MDFeaturizer
 from chainsaw import api
 import msmtools.generation as msmgen
-import tempfile
 from six.moves import range
 import pkg_resources
 from chainsaw.util.files import TemporaryDirectory
 import chainsaw as coor
+
 
 class TestPipeline(unittest.TestCase):
     @classmethod

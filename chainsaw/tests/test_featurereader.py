@@ -25,19 +25,17 @@ from __future__ import absolute_import
 import glob
 import tempfile
 import unittest
+from logging import getLogger
 
+import mdtraj
+import numpy as np
+import pkg_resources
 from chainsaw import api
 from chainsaw.api import discretizer, tica, source
 from chainsaw.data.data_in_memory import DataInMemoryIterator
-from chainsaw.data.feature_reader import FeatureReader
-from logging import getLogger
-import mdtraj
-import pkg_resources
-
-from six.moves import range
-import numpy as np
-
+from chainsaw.data.md.feature_reader import FeatureReader
 from chainsaw.tests.util import create_traj
+from six.moves import range
 
 log = getLogger('chainsaw.' + 'TestFeatureReader')
 

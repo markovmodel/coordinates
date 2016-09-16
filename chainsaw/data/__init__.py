@@ -45,14 +45,13 @@ Reader
     DataInMemory - used if data is already available in mem
 
 """
-from .feature_reader import FeatureReader
-from .featurization.featurizer import MDFeaturizer, CustomFeature
+from chainsaw.data.md.feature_reader import FeatureReader
+
 from .data_in_memory import DataInMemory
 from .numpy_filereader import NumPyFileReader
 from .py_csv_reader import PyCSVReader
-
-# util func
 from .util.reader_utils import create_file_reader
+
 
 
 # TODO: if mdtraj avail, import FEatur3REader to register md extensions.

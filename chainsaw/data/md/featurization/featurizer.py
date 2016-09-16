@@ -19,18 +19,17 @@ from __future__ import absolute_import
 
 import warnings
 
-from chainsaw.base.loggable import Loggable
-from chainsaw.util.types import is_string
 import mdtraj
+import numpy as np
 import six
+from chainsaw.base.loggable import Loggable
+from chainsaw.data.md.featurization.util import _parse_pairwise_input, _parse_groupwise_input
 
-from chainsaw.data.featurization.util import (_parse_pairwise_input,
-                                              _parse_groupwise_input)
+from chainsaw.util.patches import load_topology_cached
+from chainsaw.util.types import is_string
+from mdtraj import load_topology as load_topology_uncached
 
 from .misc import CustomFeature
-import numpy as np
-from chainsaw.util.patches import load_topology_cached
-from mdtraj import load_topology as load_topology_uncached
 
 
 __author__ = 'Frank Noe, Martin Scherer'

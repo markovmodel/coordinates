@@ -21,13 +21,11 @@ r"""User-API for the chainsaw package
 
 .. currentmodule:: chainsaw.api
 """
-import numpy as _np
 import logging as _logging
 
+import numpy as _np
 from chainsaw.util import types as _types
-# lift this function to the api
 from chainsaw.util.stat import histogram
-
 from six import string_types as _string_types
 from six.moves import range, zip
 
@@ -106,7 +104,7 @@ def featurizer(topfile):
         .. autoautosummary:: chainsaw.data.featurization.featurizer.MDFeaturizer
             :attributes:
     """
-    from chainsaw.data.featurization.featurizer import MDFeaturizer
+    from chainsaw.data.md.featurization import MDFeaturizer
     return MDFeaturizer(topfile)
 
 
@@ -612,7 +610,7 @@ def save_traj(traj_inp, indexes, outfile, top=None, stride = 1, chunksize=1000, 
     """
     from mdtraj import Topology, Trajectory
 
-    from chainsaw.data.feature_reader import FeatureReader
+    from chainsaw.data.md.feature_reader import FeatureReader
     from chainsaw.data.fragmented_trajectory_reader import FragmentedTrajectoryReader
     from chainsaw.data.util.frames_from_file import frames_from_files
     from chainsaw.data.util.reader_utils import enforce_top

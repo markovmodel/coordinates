@@ -23,7 +23,7 @@ import unittest
 import os
 import numpy as np
 
-from chainsaw.data import MDFeaturizer
+from chainsaw.data.md import MDFeaturizer
 from logging import getLogger
 import chainsaw.api as api
 from chainsaw.util import types

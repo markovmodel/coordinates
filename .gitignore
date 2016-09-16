@@ -4,6 +4,7 @@ build
 *.pyc
 *.so
 *.egg-info/
+*.orig
 
 */_ext/variational_estimators/covar_c/covartools.c
 

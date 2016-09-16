@@ -27,8 +27,8 @@ import mdtraj
 from itertools import combinations, product
 
 # from chainsaw.data import featurizer as ft
-from chainsaw.data.featurization.featurizer import MDFeaturizer, CustomFeature
-from chainsaw.data.featurization.util import _parse_pairwise_input, _describe_atom
+from chainsaw.data.md.featurization import MDFeaturizer, CustomFeature
+from chainsaw.data.md.featurization.util import _parse_pairwise_input, _describe_atom
 from six.moves import range
 import pkg_resources
 

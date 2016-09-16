@@ -20,7 +20,7 @@ Created on 15.02.2016
 @author: marscher
 '''
 from chainsaw.util.indices import (combinations,
-                                 product)
+                                   product)
 from chainsaw.util.types import is_iterable_of_int, is_string
 from six import PY3
 

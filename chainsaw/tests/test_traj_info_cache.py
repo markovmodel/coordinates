@@ -22,30 +22,26 @@ Created on 30.04.2015
 
 from __future__ import absolute_import
 
-from tempfile import NamedTemporaryFile
-
 import os
 import tempfile
 import unittest
+from tempfile import NamedTemporaryFile
 
-import mock
 import chainsaw
+import mdtraj
+import mock
+import numpy as np
+import pkg_resources
 from chainsaw import api
-from chainsaw.data.feature_reader import FeatureReader
+from chainsaw import config
+from chainsaw.data.md.feature_reader import FeatureReader
 from chainsaw.data.numpy_filereader import NumPyFileReader
 from chainsaw.data.py_csv_reader import PyCSVReader
 from chainsaw.data.util.traj_info_backends import SqliteDB
 from chainsaw.data.util.traj_info_cache import TrajectoryInfoCache
 from chainsaw.tests.util import create_traj, get_bpti_test_data
-
-from chainsaw import config
-
 from chainsaw.util.contexts import settings
 from chainsaw.util.files import TemporaryDirectory
-import mdtraj
-import pkg_resources
-
-import numpy as np
 
 xtcfiles, pdbfile = get_bpti_test_data()
 

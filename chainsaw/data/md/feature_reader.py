@@ -22,9 +22,9 @@ import mdtraj
 import numpy as np
 
 from chainsaw.data.util.fileformat_registry import FileFormatRegistry
-from ._base.datasource import DataSourceIterator, DataSource
-from ._base.random_accessible import RandomAccessStrategy
-from chainsaw.data.featurization.featurizer import MDFeaturizer
+from chainsaw.data._base.datasource import DataSourceIterator, DataSource
+from chainsaw.data._base.random_accessible import RandomAccessStrategy
+from chainsaw.data.md.featurization import MDFeaturizer
 from chainsaw.data.util.traj_info_cache import TrajInfo
 from chainsaw.util import patches
 from chainsaw.util.annotators import fix_docs
@@ -105,7 +105,7 @@ class FeatureReader(DataSource):
     """
     SUPPORTED_RANDOM_ACCESS_FORMATS = (".h5", ".dcd", ".binpos", ".nc", ".xtc", ".trr")
 
-    def __init__(self, trajectories, topologyfile=None, chunksize=1000, featurizer=None):
+    def __init__(self, trajectories, topologyfile=None, chunksize=1000, featurizer=None, **kw):
         assert (topologyfile is not None) or (featurizer is not None), \
             "Needs either a topology file or a featurizer for instantiation"
 

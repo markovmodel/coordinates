@@ -93,9 +93,9 @@ def create_file_reader(input_files, topology, featurizer, chunk_size=1000, **kw)
                         if not featurizer and not topology:
                             raise ValueError("The input files were MD files which makes it mandatory to have either a "
                                              "featurizer or a topology file.")
-                        reader = clazz(input_list, featurizer=featurizer, topologyfile=topology, chunksize=chunk_size)
-                    else:
-                        reader = clazz(input_list, chunksize=chunk_size, **kw)
+                        kw['featurizer'] = featurizer
+                        kw['topologyfile'] = topology
+                    reader = clazz(input_list, chunksize=chunk_size, **kw)
                 else:
                     import pprint
                     exts = pprint.pformat(sorted(FileFormatRegistry.supported_extensions()))

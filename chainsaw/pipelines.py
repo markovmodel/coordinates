@@ -17,13 +17,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import absolute_import
-#from chainsaw.clustering.interface import AbstractClustering
-from chainsaw.transform.transformer import StreamingTransformer
-from chainsaw.data.feature_reader import FeatureReader
 
 from logging import getLogger
-from chainsaw.data._base.iterable import Iterable
+
 from chainsaw.data._base.datasource import DataSource
+from chainsaw.data._base.iterable import Iterable
+from chainsaw.data.md.feature_reader import FeatureReader
+from chainsaw.transform.transformer import StreamingTransformer
 
 __all__ = ['Discretizer',
            'Pipeline',

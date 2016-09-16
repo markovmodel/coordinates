@@ -18,7 +18,6 @@
 import itertools
 
 import numpy as np
-
 from chainsaw.data._base.datasource import DataSource, DataSourceIterator
 from chainsaw.data.util.reader_utils import preallocate_empty_trajectory
 from chainsaw.util.annotators import fix_docs
@@ -161,7 +160,7 @@ class _FragmentedTrajectoryIterator(object):
         return self.__next__()
 
     def _allocate_chunk(self, expected_length, ndim):
-        from chainsaw.data.feature_reader import FeatureReader
+        from chainsaw.data.md.feature_reader import FeatureReader
         if all(isinstance(r, FeatureReader) and r._return_traj_obj for r in self._readers):
             X = preallocate_empty_trajectory(n_frames=expected_length,
                                              top=self._readers[0].featurizer.topology)
