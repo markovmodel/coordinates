@@ -24,6 +24,7 @@ requirements:
     - decorator >=4.0.0
     - progress_reporter
     - pyyaml
+    - nomkl
 
   run:
     - python
@@ -38,6 +39,7 @@ requirements:
     - decorator >=4.0.0
     - progress_reporter
     - pyyaml
+    - nomkl
 
 test:
   requires:
