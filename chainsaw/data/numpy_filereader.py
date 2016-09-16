@@ -50,7 +50,7 @@ class NumPyFileReader(DataSource):
         binary NumPy arrays are being memory mapped using this flag.
     """
 
-    def __init__(self, filenames, chunksize=1000, mmap_mode='r'):
+    def __init__(self, filenames, chunksize=1000, mmap_mode='r', **kw):
         super(NumPyFileReader, self).__init__(chunksize=chunksize)
         self._is_reader = True
 

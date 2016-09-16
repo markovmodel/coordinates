@@ -6,9 +6,10 @@ from glob import glob
 import numpy as np
 from chainsaw import config
 
-from ..data.cache import Cache
+from chainsaw.data.cache import Cache
 import chainsaw
 
+from logging import getLogger
 
 class ProfilerCase(unittest.TestCase):
     def setUp(self):
@@ -40,17 +41,12 @@ class TestCache(unittest.TestCase):
         super(TestCache, self).setUp()
         self.tmp_cache_dir = tempfile.mkdtemp(dir=self.test_dir)
         config.cache_dir = self.tmp_cache_dir
+        self.logger = getLogger("chainsaw.test.%s"%self.id())
 
     @classmethod
     def tearDownClass(cls):
         import shutil
         shutil.rmtree(cls.test_dir, ignore_errors=False)
-
-        from chainsaw.data.cache import _used_files
-        import pprint
-        pprint.pprint(_used_files)
-        print("*"*80)
-        pprint.pprint(set(_used_files))
 
     def test_cache_hits(self):
         src = chainsaw.source(self.files, chunk_size=1000)
@@ -97,7 +93,7 @@ class TestCache(unittest.TestCase):
 
     def test_tica_cached_output(self):
         src = chainsaw.source(self.files, chunk_size=0)
-        tica = chainsaw.tica(src)
+        tica = chainsaw.tica(src, dim=2)
 
         tica_output = tica.get_output()
         cache = Cache(tica)
@@ -106,7 +102,7 @@ class TestCache(unittest.TestCase):
 
     def test_cache_switch_cache_file(self):
         src = chainsaw.source(self.files, chunk_size=0)
-        t = chainsaw.tica(src)
+        t = chainsaw.tica(src, dim=2)
         cache = Cache(t)
 
     def test_with_feature_reader_switch_cache_file(self):

@@ -21,12 +21,12 @@ class FileFormatRegistry(object):
 
     @staticmethod
     def is_md_format(extension):
-        try:
-            from pyemma.coordinates.data import FeatureReader
+        import chainsaw.data.md as md
+        if hasattr(md, 'FeatureReader'):
+            from chainsaw.data.md import FeatureReader
             return extension in FeatureReader.SUPPORTED_EXTENSIONS
-        except ImportError:
-            # TODO: this could cause problems
-            return False
+
+        return False
 
     def supported_extensions(self):
         return self._readers.keys()

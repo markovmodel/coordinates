@@ -24,6 +24,8 @@ requirements:
     - decorator >=4.0.0
     - progress_reporter
     - pyyaml
+    - nomkl
+    - msmtools # TODO: remove
 
   run:
     - python
@@ -38,6 +40,8 @@ requirements:
     - decorator >=4.0.0
     - progress_reporter
     - pyyaml
+    - nomkl
+    - msmtools # TODO: remove
 
 test:
   requires:

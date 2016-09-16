@@ -28,7 +28,7 @@ handlers:
     #    backupCount: 3
 
 loggers:
-    pyemma:
+    chainsaw:
         level: INFO
         # by default no file logging!
         handlers: [console] #, rotating_files]
